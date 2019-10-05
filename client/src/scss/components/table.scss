@@ -1,0 +1,57 @@
+.table-header-rotated {
+    th.row-header {
+        width: auto;
+    }
+
+    td {
+        border-top: 1px solid #dee2e6;
+        border-left: 1px solid #dee2e6;
+        border-right: 1px solid #dee2e6;
+        vertical-align: middle;
+
+        &.subsidiary_number {
+            vertical-align: top;
+        }
+        p {
+            margin-bottom: 0;
+        }
+    }
+
+    th {
+        &.rotate-45 {
+            height: 126px;
+            position: relative;
+            padding: 0 10px 10px 0;
+            font-weight: bold;
+            width: 120px;
+            font-size: 0.95rem;
+
+            > div {
+                position: relative;
+                top: 0;
+                left: 63px; /* 80 * tan(45) / 2 = 40 where 80 is the height on the cell and 45 is the transform angle*/
+                height: 100%;
+                -ms-transform: skew(-45deg);
+                -moz-transform: skew(-45deg);
+                -webkit-transform: skew(-45deg);
+                -o-transform: skew(-45deg);
+                transform: skew(-45deg);
+                overflow: hidden;
+            }
+
+            span {
+                -ms-transform: skew(45deg) rotate(315deg);
+                -moz-transform: skew(45deg) rotate(315deg);
+                -webkit-transform: skew(45deg) rotate(315deg);
+                -o-transform: skew(45deg) rotate(315deg);
+                transform: skew(45deg) rotate(315deg);
+                position: absolute;
+                bottom: 30px; /* 40 cos(45) = 28 with an additional 2px margin*/
+                left: -15px; /*Because it looked good, but there is probably a mathematical link here as well*/
+                display: inline-block;
+                width: 100%;
+                text-align: left;
+            }
+        }
+    }
+}

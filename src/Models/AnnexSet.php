@@ -134,4 +134,9 @@ class AnnexSet extends DataObject
         return false;
     }
 
+    public function getTeamCount()
+    {
+        return $this->Teams()->count() + 2;
+    }
+
 }

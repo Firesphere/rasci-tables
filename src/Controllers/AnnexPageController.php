@@ -11,11 +11,15 @@ use SilverStripe\Forms\Form;
 use SilverStripe\Forms\FormAction;
 use SilverStripe\View\Requirements;
 
+/**
+ * Class \Firesphere\ISO27001Compliance\Controllers\AnnexPageController
+ *
+ */
 class AnnexPageController extends PageController
 {
 
     private static $allowed_actions = [
-        'SaveForm'
+        'SaveForm',
     ];
 
     public function init()
@@ -38,7 +42,7 @@ class AnnexPageController extends PageController
         foreach ($data['rasci-value'] as $value) {
             if ($value !== '') {
                 $values = explode('-', $value);
-                    RASCI::findOrCreate($values[0], $values[1], $values[2], $this->ID);
+                RASCI::findOrCreate($values[0], $values[1], $values[2], $this->ID);
             }
         }
 

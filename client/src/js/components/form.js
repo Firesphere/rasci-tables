@@ -13,6 +13,7 @@ export default function () {
                 item.style.display = 'none';
             });
             row.querySelector('td.savebutton').style.display = 'block';
+            document.querySelector('th.savebutton').style.display = 'block';
         });
     });
 
@@ -30,6 +31,7 @@ export default function () {
             e.explicitOriginalTarget.value = "Save";
             try {
                 e.explicitOriginalTarget.closest('td').style.display = 'none';
+                document.getElementsByTagName('th.savebutton')[0].style.display = 'none';
             } catch (exception) {
                 // noop, we're using a button outside of the table
             }

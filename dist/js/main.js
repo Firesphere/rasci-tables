@@ -103,6 +103,7 @@ var form = document.getElementById('Form_SaveForm');
                 item.style.display = 'none';
             });
             row.querySelector('td.savebutton').style.display = 'block';
+            document.querySelector('th.savebutton').style.display = 'block';
         });
     });
 
@@ -120,6 +121,7 @@ var form = document.getElementById('Form_SaveForm');
             e.explicitOriginalTarget.value = "Save";
             try {
                 e.explicitOriginalTarget.closest('td').style.display = 'none';
+                document.getElementsByTagName('th.savebutton')[0].style.display = 'none';
             } catch (exception) {
                 // noop, we're using a button outside of the table
             }

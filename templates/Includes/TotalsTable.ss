@@ -1,9 +1,9 @@
-<table class="table-bordered table-striped table-hover" id="totals-table">
+<table class="table-bordered table-striped table-hover table-header-rotated" id="totals-table">
     <thead>
-    <tr>
+    <tr class=" alert alert-primary">
         <th>Total per team</th>
         <% loop $Annex.Teams %>
-            <th>$Name</th>
+            <th class="rotate-45"><div><span>$Name</span></div></th>
         <% end_loop %>
     </tr>
     </thead>

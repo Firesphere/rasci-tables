@@ -7,6 +7,7 @@ namespace Firesphere\ISO27001Compliance\Models;
 use Firesphere\ISO27001Compliance\Pages\PolicyPage;
 use SilverStripe\ORM\DataList;
 use SilverStripe\ORM\DataObject;
+use SilverStripe\ORM\ManyManyList;
 use SilverStripe\Security\Member;
 
 /**
@@ -14,10 +15,13 @@ use SilverStripe\Security\Member;
  *
  * @property string $SubNo
  * @property string $Title
- * @property string $Lead
+ * @property string $Owner
  * @property int $AnnexChapterID
+ * @property int $SubChapterID
  * @method AnnexChapter AnnexChapter()
+ * @method SubChapter SubChapter()
  * @method DataList|RASCI[] RASCI()
+ * @method ManyManyList|PolicyPage[] PolicyPages()
  */
 class Subsidiary extends DataObject
 {
@@ -32,6 +36,7 @@ class Subsidiary extends DataObject
 
     private static $has_one = [
         'AnnexChapter' => AnnexChapter::class,
+        'SubChapter'   => SubChapter::class,
     ];
 
     private static $has_many = [
@@ -40,6 +45,11 @@ class Subsidiary extends DataObject
 
     private static $belongs_many_many = [
         'PolicyPages' => PolicyPage::class,
+    ];
+
+    private static $summary_fields = [
+        'SubNo',
+        'Title',
     ];
 
     /**
@@ -52,4 +62,16 @@ class Subsidiary extends DataObject
         return false;
     }
 
+    public function onBeforeWrite()
+    {
+        parent::onBeforeWrite();
+        $sub = (int)substr($this->SubNo, -1);
+        if (!$this->SubChapter()->count && $sub === 1) {
+            $find = substr($this->SubNo, 0, -2);
+            $subChapter = SubChapter::get()->filter(['SubNo' => $find])->first();
+            if ($subChapter) {
+                $this->SubChapterID = $subChapter->ID;
+            }
+        }
+    }
 }

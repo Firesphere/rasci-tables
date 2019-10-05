@@ -4,7 +4,6 @@
 namespace Firesphere\ISO27001Compliance\Models;
 
 
-use Firesphere\ISO27001Compliance\Pages\AnnexPage;
 use SilverStripe\ORM\DataObject;
 
 /**
@@ -18,7 +17,7 @@ use SilverStripe\ORM\DataObject;
  */
 class RASCI extends DataObject
 {
-    private static $table_name = 'RASCI';
+    private static $table_name = 'ISO27k1RASCI';
 
     private static $db = [
         'Value' => 'Enum(",R,A,S,C,I")',

@@ -33,7 +33,7 @@
             <tr class="alert alert-primary">
                 <th colspan="2">Section of ISO/IEC 27001:2013</th>
                 <% loop $Teams %>
-                    <th class="rotate rasci_team" valign="bottom">
+                    <th class="rotate-45 rasci_team">
                         <div><span>$Name</span></div>
                     </th>
                 <% end_loop %>
@@ -46,10 +46,21 @@
                 <tr class="table-info">
                     <td colspan="2"><b>Annex A.{$AnnexNo} $Title</b></td>
                     <td colspan="$AnnexSet.Teams.count"></td>
-                    <td><a href="$Reference" target="_blank">Reference for Annex $AnnexNo</a></td>
-                    <td class="savebutton"></td>
+                    <td colspan="2"><a href="$Reference" target="_blank">Reference for Annex $AnnexNo</a></td>
                 </tr>
                     <% loop $Subsidiaries %>
+                        <% if $SubChapterID %>
+                            <% with $SubChapter %>
+                            <tr class="alert alert-dark">
+                                <td valign="top" class="subsidiary_number" width="80px" align="right"><code>$SubNo</code></td>
+                                <td colspan="$Up.AnnexChapter.AnnexSet.TeamCount" class="subsidiary_title">
+                                    $Title
+                                    $Description
+                                </td>
+                                <td class="savebutton"></td>
+                            </tr>
+                            <% end_with %>
+                        <% end_if %>
                     <tr class="$EvenOdd">
                         <td class="subsidiary_number" width="80px" align="right"><code>$SubNo</code></td>
                         <td class="subsidiary_title">$Title</td>
