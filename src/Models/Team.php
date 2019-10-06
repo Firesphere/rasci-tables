@@ -12,6 +12,7 @@ use SilverStripe\ORM\ManyManyList;
  * Class \Firesphere\ISO27001Compliance\Models\Team
  *
  * @property string $Name
+ * @property int $SortOrder
  * @method DataList|RASCI[] RASCI()
  * @method ManyManyList|AnnexSet[] AnnexSet()
  */
@@ -21,7 +22,8 @@ class Team extends DataObject
     private static $table_name = 'ISO27k1Team';
 
     private static $db = [
-        'Name' => 'Varchar(255)',
+        'Name'      => 'Varchar(255)',
+        'SortOrder' => 'Int',
     ];
 
     private static $has_many = [
@@ -32,21 +34,42 @@ class Team extends DataObject
         'AnnexSet' => AnnexSet::class,
     ];
 
+    private static $default_sort = 'SortOrder ASC';
+
+    private static $default_records = [
+        [
+            'Name' => 'HR',
+        ],
+        [
+            'Name' => 'Information Security',
+        ],
+        [
+            'Name' => 'Operational Security',
+        ],
+        [
+            'Name' => 'All Staff',
+        ],
+        [
+            'Name' => 'Finances',
+        ],
+        [
+            'Name' => 'Legal',
+        ],
+        [
+            'Name' => 'Information asset owners',
+        ],
+    ];
+
     public function getCMSFields()
     {
         $fields = parent::getCMSFields();
-        $fields->removeByName(['RASCI', 'AnnexSet']);
+        $fields->removeByName(['RASCI', 'AnnexSet', 'SortOrder']);
 
         return $fields;
     }
 
-    public function onBeforeWrite()
+    public function TotalItems($val)
     {
-        parent::onBeforeWrite();
-        $this->AnnexSet()->add(AnnexSet::get()->first());
-    }
-
-    public function TotalItems($val) {
         return $this->RASCI()->filter(['Value' => $val])->count();
     }
 

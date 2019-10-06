@@ -1,6 +1,7 @@
 const dropdowns = Array.from(document.getElementsByClassName('rasci-value'));
 const savebuttons = Array.from(document.getElementsByClassName('savebutton'));
-const form = document.getElementById('Form_SaveForm');
+const form = document.getElementById('Form_SaveForm')
+const table = document.getElementById('totals-table');
 
 export default function () {
     dropdowns.forEach(item => {
@@ -13,30 +14,38 @@ export default function () {
                 item.style.display = 'none';
             });
             row.querySelector('td.savebutton').style.display = 'block';
+            document.querySelector('th.savebutton').style.display = 'block';
+            Array.from(document.querySelectorAll('td.savebutton.alert-dark'))
+                .forEach(item => {
+                    item.style.display = 'block';
+                })
         });
     });
 
     form.addEventListener("submit", (e) => {
         e.preventDefault();
-        const original = e.explicitOriginalTarget;
+        let original = e.explicitOriginalTarget;
         original.value = "";
         e.explicitOriginalTarget.classList.add('spinner-border');
-        const data = new FormData(form);
-        const request = new XMLHttpRequest();
+        let data = new FormData(form);
+        let request = new XMLHttpRequest();
         request.open("POST", form.getAttribute('action'));
         request.send(data);
+        request.onreadystatechange = () => {
+            table.innerHTML = request.response;
+        };
         setTimeout(() => {
             e.explicitOriginalTarget.classList.remove('spinner-border');
             e.explicitOriginalTarget.value = "Save";
             try {
                 e.explicitOriginalTarget.closest('td').style.display = 'none';
+                document.querySelector('th.savebutton').style.display = 'none';
+                Array.from(document.querySelectorAll('td.savebutton.alert-dark')).forEach(item => {
+                    item.style.display = 'none';
+                });
+
             } catch (exception) {
-                // noop, we're using a button outside of the table
-            }
-            request.onreadystatechange = () => {
-                if (request.readyState === 4) {
-                    document.getElementById('totals-table').innerHTML = (request.response);
-                }
+                // no-op
             }
         }, 1000);
         return false;

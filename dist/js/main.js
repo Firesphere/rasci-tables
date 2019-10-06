@@ -91,6 +91,7 @@ __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__components_form__["a" /* defa
 var dropdowns = Array.from(document.getElementsByClassName('rasci-value'));
 var savebuttons = Array.from(document.getElementsByClassName('savebutton'));
 var form = document.getElementById('Form_SaveForm');
+var table = document.getElementById('totals-table');
 
 /* harmony default export */ __webpack_exports__["a"] = (function () {
     dropdowns.forEach(function (item) {
@@ -103,6 +104,10 @@ var form = document.getElementById('Form_SaveForm');
                 item.style.display = 'none';
             });
             row.querySelector('td.savebutton').style.display = 'block';
+            document.querySelector('th.savebutton').style.display = 'block';
+            Array.from(document.querySelectorAll('td.savebutton.alert-dark')).forEach(function (item) {
+                item.style.display = 'block';
+            });
         });
     });
 
@@ -115,19 +120,21 @@ var form = document.getElementById('Form_SaveForm');
         var request = new XMLHttpRequest();
         request.open("POST", form.getAttribute('action'));
         request.send(data);
+        request.onreadystatechange = function () {
+            table.innerHTML = request.response;
+        };
         setTimeout(function () {
             e.explicitOriginalTarget.classList.remove('spinner-border');
             e.explicitOriginalTarget.value = "Save";
             try {
                 e.explicitOriginalTarget.closest('td').style.display = 'none';
+                document.querySelector('th.savebutton').style.display = 'none';
+                Array.from(document.querySelectorAll('td.savebutton.alert-dark')).forEach(function (item) {
+                    item.style.display = 'none';
+                });
             } catch (exception) {
-                // noop, we're using a button outside of the table
+                // no-op
             }
-            request.onreadystatechange = function () {
-                if (request.readyState === 4) {
-                    document.getElementById('totals-table').innerHTML = request.response;
-                }
-            };
         }, 1000);
         return false;
     });

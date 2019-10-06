@@ -1,0 +1,62 @@
+.table-header-rotated {
+    th.row-header {
+        width: auto;
+    }
+
+    td {
+        border-top: 1px solid #dee2e6;
+        border-left: 1px solid #dee2e6;
+        border-right: 1px solid #dee2e6;
+        vertical-align: middle;
+
+        &.subsidiary_number {
+            vertical-align: top;
+        }
+        p {
+            margin-bottom: 0;
+        }
+    }
+
+    th {
+        &.rotate-45 {
+            height: 126px;
+            position: relative;
+            padding: 0;
+            font-weight: bold;
+            width: 5rem;
+            font-size: 0.95rem;
+
+            > div {
+                position: relative;
+                top: 0;
+                left: 61px; /* 80 * tan(45) / 2 = 40 where 80 is the height on the cell and 45 is the transform angle*/
+                height: 100%;
+                -ms-transform: skew(-45deg);
+                -moz-transform: skew(-45deg);
+                -webkit-transform: skew(-45deg);
+                -o-transform: skew(-45deg);
+                transform: skew(-45deg);
+                overflow: hidden;
+                border-left: 1px solid darkgray;
+            }
+
+            span {
+                -ms-transform: skew(45deg) rotate(315deg);
+                -moz-transform: skew(45deg) rotate(315deg);
+                -webkit-transform: skew(45deg) rotate(315deg);
+                -o-transform: skew(45deg) rotate(315deg);
+                transform: skew(45deg) rotate(315deg);
+                position: absolute;
+                bottom: 30px;
+                left: -7px;
+                display: inline-block;
+                width: 7rem;
+                text-align: left;
+                padding-bottom: 10px;
+            }
+            &.last div {
+                border-right: 1px solid darkgray;
+            }
+        }
+    }
+}
