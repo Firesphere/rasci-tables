@@ -121,6 +121,10 @@ class AnnexSet extends DataObject
                 'Reference'  => $annex['Reference'],
             ])->write();
         }
+
+        foreach (Team::get() as $team) {
+            $this->Teams()->add($team);
+        }
         parent::onAfterWrite();
     }
 
@@ -138,5 +142,4 @@ class AnnexSet extends DataObject
     {
         return $this->Teams()->count() + 2;
     }
-
 }

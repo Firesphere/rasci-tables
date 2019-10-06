@@ -33,11 +33,11 @@
             <tr class="alert alert-primary">
                 <th colspan="2">Section of ISO/IEC 27001:2013</th>
                 <% loop $Teams %>
-                    <th class="rotate-45 rasci_team">
+                    <th class="rotate-45 rasci_team <% if $Last %>last<% end_if %>">
                         <div><span>$Name</span></div>
                     </th>
                 <% end_loop %>
-                <th>References or Owner</th>
+                <th class="text-center">References or Owner</th>
                 <th class="savebutton"></th>
             </tr>
             </thead>
@@ -45,7 +45,7 @@
                 <% loop $AnnexChapters %>
                 <tr class="table-info">
                     <td colspan="2"><b>Annex A.{$AnnexNo} $Title</b></td>
-                    <td colspan="$AnnexSet.Teams.count"></td>
+                    <% loop $AnnexSet.Teams %><td></td><% end_loop %>
                     <td colspan="2"><a href="$Reference" target="_blank">Reference for Annex $AnnexNo</a></td>
                 </tr>
                     <% loop $Subsidiaries %>
@@ -57,7 +57,7 @@
                                     $Title
                                     $Description
                                 </td>
-                                <td class="savebutton"></td>
+                                <td class="savebutton alert alert-dark"></td>
                             </tr>
                             <% end_with %>
                         <% end_if %>

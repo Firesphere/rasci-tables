@@ -14,6 +14,10 @@ export default function () {
             });
             row.querySelector('td.savebutton').style.display = 'block';
             document.querySelector('th.savebutton').style.display = 'block';
+            Array.from(document.querySelectorAll('td.savebutton.alert-dark'))
+                .forEach(item => {
+                    item.style.display = 'block';
+                })
         });
     });
 
@@ -31,7 +35,10 @@ export default function () {
             e.explicitOriginalTarget.value = "Save";
             try {
                 e.explicitOriginalTarget.closest('td').style.display = 'none';
-                document.getElementsByTagName('th.savebutton')[0].style.display = 'none';
+                document.querySelector('th.savebutton').style.display = 'none';
+                Array.from(document.querySelectorAll('td.savebutton.alert-dark')).forEach(item => {
+                    item.style.display = 'none';
+                });
             } catch (exception) {
                 // noop, we're using a button outside of the table
             }

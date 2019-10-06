@@ -48,4 +48,9 @@ class AnnexPageController extends PageController
 
         return $this->renderWith('Includes/TotalsTable');
     }
+
+    public function Totals($type)
+    {
+        return RASCI::get()->filter(['Value' => $type])->count();
+    }
 }

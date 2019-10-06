@@ -65,12 +65,6 @@ class Team extends DataObject
         return $fields;
     }
 
-    public function onBeforeWrite()
-    {
-        parent::onBeforeWrite();
-        $this->AnnexSet()->add(AnnexSet::get()->first());
-    }
-
     public function TotalItems($val)
     {
         return $this->RASCI()->filter(['Value' => $val])->count();
