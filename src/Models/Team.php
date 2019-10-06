@@ -55,6 +55,9 @@ class Team extends DataObject
         [
             'Name' => 'Legal',
         ],
+        [
+            'Name' => 'Information asset owners',
+        ],
     ];
 
     public function getCMSFields()
