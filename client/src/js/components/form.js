@@ -9,7 +9,9 @@ export default function () {
             const cell = item.closest('td');
             const row = cell.closest('tr');
             cell.classList.remove('r', 'a', 's', 'c', 'i');
-            cell.classList.add(item.value[0].toLowerCase());
+            if (item.value) {
+                cell.classList.add(item.value[0].toLowerCase());
+            }
             savebuttons.forEach(item => {
                 item.style.display = 'none';
             });

@@ -99,7 +99,9 @@ var table = document.getElementById('totals-table');
             var cell = item.closest('td');
             var row = cell.closest('tr');
             cell.classList.remove('r', 'a', 's', 'c', 'i');
-            cell.classList.add(item.value[0].toLowerCase());
+            if (item.value) {
+                cell.classList.add(item.value[0].toLowerCase());
+            }
             savebuttons.forEach(function (item) {
                 item.style.display = 'none';
             });
