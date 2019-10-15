@@ -19,6 +19,8 @@ class AnnexAdmin extends ModelAdmin
 
     private static $url_segment = 'ISO27001Compliance';
 
+    private static $menu_icon_class = 'font-icon-block-file-list';
+
     private static $managed_models = [
         AnnexSet::class,
         Team::class,

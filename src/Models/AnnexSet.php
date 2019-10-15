@@ -20,6 +20,8 @@ use SilverStripe\Security\Member;
  */
 class AnnexSet extends DataObject
 {
+    protected static $teamCount = false;
+
     protected static $annexes = [
         [
             'Title'     => 'Information security policies',
@@ -113,17 +115,19 @@ class AnnexSet extends DataObject
 
     public function onAfterWrite()
     {
-        foreach (static::$annexes as $annex) {
-            AnnexChapter::create([
-                'Title'      => $annex['Title'],
-                'AnnexNo'    => $annex['Number'],
-                'AnnexSetID' => $this->ID,
-                'Reference'  => $annex['Reference'],
-            ])->write();
-        }
+        if (!$this->AnnexChapters()->count()) {
+            foreach (static::$annexes as $annex) {
+                AnnexChapter::create([
+                    'Title'      => $annex['Title'],
+                    'AnnexNo'    => $annex['Number'],
+                    'AnnexSetID' => $this->ID,
+                    'Reference'  => $annex['Reference'],
+                ])->write();
+            }
 
-        foreach (Team::get() as $team) {
-            $this->Teams()->add($team);
+            foreach (Team::get() as $team) {
+                $this->Teams()->add($team);
+            }
         }
         parent::onAfterWrite();
     }
@@ -138,8 +142,12 @@ class AnnexSet extends DataObject
         return false;
     }
 
-    public function getTeamCount()
+    public function getTeamCount($plus = 0)
     {
-        return $this->Teams()->count() + 2;
+        if (static::$teamCount === false) {
+            static::$teamCount = $this->Teams()->count();
+        }
+
+        return static::$teamCount + $plus;
     }
 }

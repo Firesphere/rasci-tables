@@ -18,8 +18,11 @@ use SilverStripe\ORM\ManyManyList;
  */
 class Team extends DataObject
 {
+    public static $selected = [];
 
     private static $table_name = 'ISO27k1Team';
+
+    private static $key;
 
     private static $db = [
         'Name'      => 'Varchar(255)',
@@ -34,7 +37,7 @@ class Team extends DataObject
         'AnnexSet' => AnnexSet::class,
     ];
 
-    private static $default_sort = 'SortOrder ASC';
+    private static $default_sort = 'SortOrder ASC, ID ASC';
 
     private static $default_records = [
         [
@@ -68,6 +71,15 @@ class Team extends DataObject
         return $fields;
     }
 
+    public function onAfterWrite()
+    {
+        parent::onAfterWrite();
+        $sets = AnnexSet::get();
+        foreach ($sets as $set) {
+            $this->AnnexSet()->add($set);
+        }
+    }
+
     public function TotalItems($val)
     {
         return $this->RASCI()->filter(['Value' => $val])->count();
@@ -75,10 +87,12 @@ class Team extends DataObject
 
     public function IsSelected($val, $subsidiary)
     {
-        $rasci = $this->RASCI()->filter(['SubsidiaryID' => $subsidiary])->first();
+        if (!isset(static::$selected[$this->ID])) {
+            static::$selected[$this->ID] = $this->RASCI()->map('SubsidiaryID', 'Value')->toArray();
+        }
 
-        if ($rasci) {
-            return $val === $rasci->Value;
+        if (isset(static::$selected[$this->ID][$subsidiary])) {
+            return $val === static::$selected[$this->ID][$subsidiary];
         }
 
         return false;

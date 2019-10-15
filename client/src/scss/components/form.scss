@@ -36,7 +36,8 @@ tr {
             background-color: rgb(191, 191, 191);
         }
         &.subsidiary_title {
-            min-width: 610px;
+            width: 10px;
+            white-space: nowrap;
         }
     }
 }

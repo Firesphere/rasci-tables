@@ -9,15 +9,31 @@
         border-right: 1px solid #dee2e6;
         vertical-align: middle;
 
-        &.subsidiary_number {
-            vertical-align: top;
+        &.subsidiary {
+            &_number {
+                width: 80px;
+                text-align: right;
+            }
+            &_reference {
+                vertical-align: top;
+            }
         }
+
         p {
             margin-bottom: 0;
         }
     }
 
     th {
+        &.subsidiary_number {
+            width: 80px;
+            text-align: right;
+        }
+
+        &.text-center {
+            padding-left: 40px;
+        }
+
         &.rotate-45 {
             height: 126px;
             position: relative;
@@ -29,7 +45,7 @@
             > div {
                 position: relative;
                 top: 0;
-                left: 61px; /* 80 * tan(45) / 2 = 40 where 80 is the height on the cell and 45 is the transform angle*/
+                left: 61px;
                 height: 100%;
                 -ms-transform: skew(-45deg);
                 -moz-transform: skew(-45deg);
@@ -54,9 +70,17 @@
                 text-align: left;
                 padding-bottom: 10px;
             }
+
             &.last div {
                 border-right: 1px solid darkgray;
             }
         }
+    }
+}
+
+th {
+    &.subsidiary_number {
+        width: 80px;
+        text-align: right;
     }
 }

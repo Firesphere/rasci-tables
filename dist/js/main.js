@@ -105,11 +105,7 @@ var table = document.getElementById('totals-table');
             savebuttons.forEach(function (item) {
                 item.style.display = 'none';
             });
-            row.querySelector('td.savebutton').style.display = 'block';
             document.querySelector('th.savebutton').style.display = 'block';
-            Array.from(document.querySelectorAll('td.savebutton.alert-dark')).forEach(function (item) {
-                item.style.display = 'block';
-            });
         });
     });
 

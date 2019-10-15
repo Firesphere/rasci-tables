@@ -39,10 +39,11 @@ class AnnexPageController extends PageController
 
     public function process($data, $form)
     {
+        RASCI::get()->removeAll();
         foreach ($data['rasci-value'] as $value) {
             if ($value !== '') {
                 $values = explode('-', $value);
-                RASCI::findOrCreate($values[0], $values[1], $values[2], $this->ID);
+                RASCI::findOrCreate($values[0], $values[1], $values[2]);
             }
         }
 
