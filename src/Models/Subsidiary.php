@@ -15,7 +15,7 @@ use SilverStripe\Security\Member;
  *
  * @property string $SubNo
  * @property string $Title
- * @property string $Owner
+ * @property string $Lead
  * @property int $AnnexChapterID
  * @property int $SubChapterID
  * @method AnnexChapter AnnexChapter()
@@ -26,12 +26,13 @@ use SilverStripe\Security\Member;
 class Subsidiary extends DataObject
 {
 
+    protected static $teams = false;
     private static $table_name = 'ISO27k1Subsidiary';
 
     private static $db = [
         'SubNo' => 'Varchar(10)',
         'Title' => 'Varchar(255)',
-        'Owner' => 'Varchar(255)',
+        'Lead'  => 'Varchar(255)',
     ];
 
     private static $has_one = [
@@ -51,6 +52,21 @@ class Subsidiary extends DataObject
         'SubNo',
         'Title',
     ];
+
+    public function getCMSFields()
+    {
+        $fields = parent::getCMSFields();
+        $fields->removeByName(['PolicyPages', 'RASCI']);
+
+        $fields->DataFieldByName('SubNo')->setReadonly(true);
+        $fields->DataFieldByName('SubNo')->setDisabled(true);
+        $fields->DataFieldByName('SubChapterID')->setReadonly(true);
+        $fields->DataFieldByName('SubChapterID')->setDisabled(true);
+        $fields->DataFieldByName('AnnexChapterID')->setReadonly(true);
+        $fields->DataFieldByName('AnnexChapterID')->setDisabled(true);
+
+        return $fields;
+    }
 
     /**
      * @param null|Member $member
@@ -73,5 +89,13 @@ class Subsidiary extends DataObject
                 $this->SubChapterID = $subChapter->ID;
             }
         }
+    }
+
+    public function getSubsidiaryTeam()
+    {
+        if (!static::$teams) {
+            static::$teams = Team::get();
+        }
+        return static::$teams;
     }
 }
