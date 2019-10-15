@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -148,3 +149,6 @@ module.exports = __webpack_require__(1);
 
 /***/ })
 /******/ ]);
+=======
+!function(n){function o(e){if(r[e])return r[e].exports;var t=r[e]={i:e,l:!1,exports:{}};return n[e].call(t.exports,t,t.exports,o),t.l=!0,t.exports}var r={};o.m=n,o.c=r,o.d=function(n,r,e){o.o(n,r)||Object.defineProperty(n,r,{configurable:!1,enumerable:!0,get:e})},o.n=function(n){var r=n&&n.__esModule?function(){return n.default}:function(){return n};return o.d(r,"a",r),r},o.o=function(n,o){return Object.prototype.hasOwnProperty.call(n,o)},o.p="./",o(o.s=0)}([function(n,o,r){!function(){throw new Error('Cannot find module "/Users/simon/projects/policies/iso27001compliance/client/src/js/main.js"')}(),function(){throw new Error('Cannot find module "/Users/simon/projects/policies/iso27001compliance/client/src/scss/main.scss"')}()}]);
+>>>>>>> Stashed changes

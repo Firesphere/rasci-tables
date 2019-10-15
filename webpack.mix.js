@@ -1,4 +1,4 @@
-let mix = require("laravel-mix").mix;
+let mix = require("laravel-mix");
 let path = require('path');
 
 mix.webpackConfig({
@@ -14,5 +14,4 @@ mix.setPublicPath(
 );
 
 mix.js("client/src/js/main.js", "js/main.js");
-mix
-  .sass("client/src/scss/main.scss", "css/main.css");
+mix.sass("client/src/scss/main.scss", "css/main.css");
