@@ -1,0 +1,16 @@
+checks:
+  php: true
+
+build:
+  nodes:
+    analysis:
+      tests:
+        override: [php-scrutinizer-run]
+      cache:
+        directories:
+          - vendor/
+filter:
+  paths: ["src/*"]
+
+tools:
+  external_code_coverage: true
