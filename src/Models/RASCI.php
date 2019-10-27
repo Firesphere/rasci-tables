@@ -4,6 +4,7 @@
 namespace Firesphere\ISO27001Compliance\Models;
 
 
+use Firesphere\ISO27001Compliance\Pages\AnnexPage;
 use SilverStripe\ORM\DataObject;
 
 /**
@@ -12,8 +13,10 @@ use SilverStripe\ORM\DataObject;
  * @property string $Value
  * @property int $TeamID
  * @property int $SubsidiaryID
+ * @property int $AnnexPageID
  * @method Team Team()
  * @method Subsidiary Subsidiary()
+ * @method AnnexPage AnnexPage()
  */
 class RASCI extends DataObject
 {
@@ -26,19 +29,21 @@ class RASCI extends DataObject
     private static $has_one = [
         'Team'       => Team::class,
         'Subsidiary' => Subsidiary::class,
+        'AnnexPage'  => AnnexPage::class,
     ];
 
-    public static function findOrCreate($value, $team, $subsidiary)
+    public static function findOrCreate($value, $team, $subsidiary, $pageID)
     {
         $data = [
             'TeamID'       => $team,
             'SubsidiaryID' => $subsidiary,
+            'AnnexPageID'  => $pageID,
         ];
         $self = self::get()->filter($data)->first();
         if (!$self) {
             $self = self::create();
         }
-        $self->update(array_merge(
+        return $self->update(array_merge(
                 $data,
                 ['Value' => $value]
             )

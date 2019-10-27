@@ -53,6 +53,20 @@ class Subsidiary extends DataObject
         'Title',
     ];
 
+    public function fieldLabels($includerelations = true)
+    {
+        $labels = parent::fieldLabels($includerelations);
+        $labels = array_merge($labels, [
+            'SubNo'          => _t(self::class . '.SubNo', 'SubNo'),
+            'Title'          => _t(self::class . '.Title', 'Title'),
+            'Lead'           => _t(self::class . '.Lead', 'Lead'),
+            'AnnexChapterID' => _t(self::class . '.AnnexChapter', 'AnnexChapter'),
+            'SubChapter'     => _t(self::class . '.SubChapter', 'SubChapter'),
+        ]);
+
+        return $labels;
+    }
+
     public function getCMSFields()
     {
         $fields = parent::getCMSFields();

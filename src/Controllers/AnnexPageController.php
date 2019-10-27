@@ -39,12 +39,16 @@ class AnnexPageController extends PageController
 
     public function process($data, $form)
     {
-        RASCI::get()->removeAll();
+        $items = [];
         foreach ($data['rasci-value'] as $value) {
             if ($value !== '') {
                 $values = explode('-', $value);
-                RASCI::findOrCreate($values[0], $values[1], $values[2]);
+                $items[] = RASCI::findOrCreate($values[0], $values[1], $values[2], $this->ID)->ID;
             }
+        }
+
+        if (count($items)) {
+            $this->RASCI()->exclude(['ID' => $items])->removeAll();
         }
 
         return $this->renderWith('Includes/TotalsTable');

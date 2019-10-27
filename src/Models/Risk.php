@@ -21,10 +21,10 @@ class Risk extends DataObject
 
     private static $db = [
         'RiskNumber' => 'Int',
-        'Name' => 'Varchar(255)'
+        'Name'       => 'Varchar(255)',
     ];
 
     private static $has_one = [
-        'RiskRegisterPage' => RiskRegisterPage::class
+        'RiskRegisterPage' => RiskRegisterPage::class,
     ];
 }
