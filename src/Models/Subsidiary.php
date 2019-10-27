@@ -110,6 +110,7 @@ class Subsidiary extends DataObject
         if (!static::$teams) {
             static::$teams = Team::get();
         }
+
         return static::$teams;
     }
 }

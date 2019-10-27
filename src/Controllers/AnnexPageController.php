@@ -9,6 +9,8 @@ use PageController;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\Form;
 use SilverStripe\Forms\FormAction;
+use SilverStripe\ORM\FieldType\DBHTMLText;
+use SilverStripe\ORM\ValidationException;
 use SilverStripe\View\Requirements;
 
 /**
@@ -37,13 +39,19 @@ class AnnexPageController extends PageController
         return Form::create($this, __FUNCTION__, $fields, $actions);
     }
 
+    /**
+     * @param array $data
+     * @param Form $form
+     * @return DBHTMLText
+     * @throws ValidationException
+     */
     public function process($data, $form)
     {
         $items = [];
         foreach ($data['rasci-value'] as $value) {
             if ($value !== '') {
                 $values = explode('-', $value);
-                $items[] = RASCI::findOrCreate($values[0], $values[1], $values[2], $this->ID)->ID;
+                $items[] = RASCI::findOrCreate($values[0], $values[1], $values[2], $this->ID);
             }
         }
 
@@ -54,8 +62,12 @@ class AnnexPageController extends PageController
         return $this->renderWith('Includes/TotalsTable');
     }
 
-    public function Totals($type)
+    /**
+     * @param $type
+     * @return int
+     */
+    public function getTotals($type)
     {
-        return RASCI::get()->filter(['Value' => $type])->count();
+        return $this->RASCI()->filter(['Value' => $type])->count();
     }
 }
