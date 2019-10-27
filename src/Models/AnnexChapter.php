@@ -542,8 +542,8 @@ class AnnexChapter extends DataObject
     public function onAfterWrite()
     {
         parent::onAfterWrite();
-        if (!$this->Subsidiaries()->count() && !empty(static::$subsidiaries[$this->AnnexNo])) {
-            $subsidiary = static::$subsidiaries[$this->AnnexNo];
+        if (!$this->Subsidiaries()->count() && !empty(self::$subsidiaries[$this->AnnexNo])) {
+            $subsidiary = self::$subsidiaries[$this->AnnexNo];
             foreach ($subsidiary as $item) {
                 $subs = Subsidiary::create($item);
                 $subs->AnnexChapterID = $this->ID;
