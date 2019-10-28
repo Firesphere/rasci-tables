@@ -2,7 +2,7 @@
     "name": "firesphere/iso-compliance",
     "description": "SilverStripe module to manage ISO27k1 compliance",
     "type": "silverstripe-vendormodule",
-    "license": "BSD-3-Clause",
+    "license": "AGPL-3.0-or-later",
     "keywords": [
         "silverstripe",
         "iso27k1",
