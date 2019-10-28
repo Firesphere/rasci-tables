@@ -51,7 +51,7 @@ class AnnexPageController extends PageController
         foreach ($data['rasci-value'] as $value) {
             if ($value !== '') {
                 $values = explode('-', $value);
-                $items[] = RASCI::findOrCreate($values[0], $values[1], $values[2], $this->ID);
+                $items[] = RASCI::findOrCreate($values[0], (int)$values[1], (int)$values[2], (int)$this->dataRecord->ID);
             }
         }
 
