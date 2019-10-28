@@ -56,7 +56,7 @@ class AnnexPageController extends PageController
         }
 
         if (count($items)) {
-            $this->RASCI()->exclude(['ID' => $items])->removeAll();
+            $this->dataRecord->RASCI()->exclude(['ID' => $items])->removeAll();
         }
 
         return $this->renderWith('Includes/TotalsTable');
