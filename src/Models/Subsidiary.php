@@ -96,7 +96,7 @@ class Subsidiary extends DataObject
     {
         parent::onBeforeWrite();
         $sub = (int)substr($this->SubNo, -1);
-        if (!$this->SubChapter()->count && $sub === 1) {
+        if (!$this->SubChapter()->exists() && $sub === 1) {
             $find = substr($this->SubNo, 0, -2);
             $subChapter = SubChapter::get()->filter(['SubNo' => $find])->first();
             if ($subChapter) {
