@@ -8,7 +8,7 @@ use Firesphere\ISO27001Compliance\Controllers\AnnexPageController;
 use Firesphere\ISO27001Compliance\Models\AnnexSet;
 use Firesphere\ISO27001Compliance\Models\RASCI;
 use Page;
-use SilverStripe\ORM\DataList;
+use SilverStripe\ORM\HasManyList;
 use SilverStripe\Security\Member;
 
 /**
@@ -59,20 +59,6 @@ class AnnexPage extends Page
     public function getControllerName()
     {
         return AnnexPageController::class;
-    }
-
-    /**
-     * @param null|Member $member
-     * @param array $context
-     * @return bool
-     */
-    public function canCreate($member = null, $context = [])
-    {
-        if (self::get()->count()) {
-            return false;
-        }
-
-        return parent::canCreate($member, $context);
     }
 
     /**

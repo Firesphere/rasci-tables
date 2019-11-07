@@ -6,7 +6,7 @@
                     <div class="content">
                         <h1>ISO27001 RASCI Table</h1>
                         <p>
-                            <b>The roles are identified as R, A, S, C or I meaning:</b><br/>
+                            <%t AnnexPage.EXPLAIN '<b>The roles are identified as R, A, S, C or I meaning:</b><br/>
                             <b>Responsible</b> i.e. this role has primary responsibility for performing the activities
                             in this section.<br/>
                             <b>Accountable</b> i.e. this role will be called to account if the risks materialize
@@ -16,7 +16,7 @@
                             <b>Consulted</b> i.e. this is a hands-off role, offering guidance and direction to those
                             more actively involved.<br/>
                             <b>Informed</b> i.e. this role has an interest in the status of the risks in this section
-                            and should be kept in touch with the situation.<br/>
+                            and should be kept in touch with the situation.<br/>' %>
                         </p>
                         <h3>WARNING This page does not work well on mobile devices or small screens.</h3>
                     </div>

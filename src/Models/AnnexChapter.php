@@ -6,6 +6,7 @@ namespace Firesphere\ISO27001Compliance\Models;
 
 use SilverStripe\ORM\DataList;
 use SilverStripe\ORM\DataObject;
+use SilverStripe\ORM\ValidationException;
 use SilverStripe\Security\Member;
 
 /**
@@ -47,6 +48,9 @@ class AnnexChapter extends DataObject
         return false;
     }
 
+    /**
+     * @throws ValidationException
+     */
     public function onAfterWrite()
     {
         parent::onAfterWrite();

@@ -22,12 +22,21 @@ use SilverStripe\Security\Member;
  */
 class RASCI extends DataObject
 {
+    /**
+     * @var string
+     */
     private static $table_name = 'ISO27k1RASCI';
 
+    /**
+     * @var array
+     */
     private static $db = [
         'Value' => 'Enum(",R,A,S,C,I")',
     ];
 
+    /**
+     * @var array
+     */
     private static $has_one = [
         'Team'       => Team::class,
         'Subsidiary' => Subsidiary::class,
@@ -51,8 +60,7 @@ class RASCI extends DataObject
         ];
         $self = self::get()->filter($data)->first();
         if (!$self) {
-            $self = self::create([$data]);
-            $self->write();
+            $self = self::create($data);
         }
 
         $return = $self->update(['Value' => $value]);

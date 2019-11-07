@@ -22,6 +22,7 @@ class AnnexPageController extends PageController
 
     private static $allowed_actions = [
         'SaveForm',
+        'getTotals'
     ];
 
     public function init()
@@ -51,7 +52,8 @@ class AnnexPageController extends PageController
         foreach ($data['rasci-value'] as $value) {
             if ($value !== '') {
                 $values = explode('-', $value);
-                $items[] = RASCI::findOrCreate($values[0], (int)$values[1], (int)$values[2], (int)$this->dataRecord->ID);
+                $items[] = RASCI::findOrCreate($values[0], (int)$values[1], (int)$values[2],
+                    (int)$this->dataRecord->ID);
             }
         }
 
@@ -68,6 +70,6 @@ class AnnexPageController extends PageController
      */
     public function getTotals($type)
     {
-        return $this->RASCI()->filter(['Value' => $type])->count();
+        return $this->dataRecord->RASCI()->filter(['Value' => $type])->count();
     }
 }

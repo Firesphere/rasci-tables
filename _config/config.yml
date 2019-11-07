@@ -1,4 +1,4 @@
-Firesphere\Models\AnnexSet:
+Firesphere\ISO27001Compliance\Models\AnnexSet:
   annexes:
     - Title: Information security policies
       Number: "5"
@@ -42,7 +42,7 @@ Firesphere\Models\AnnexSet:
     - Title: Compliance
       Number: "18"
       Reference: https://www.isms.online/iso-27001/annex-a-18-compliance/
-Firesphere\Models\AnnexChapter:
+Firesphere\ISO27001Compliance\Models\AnnexChapter:
   subsidiaries:
     5:
       - SubNo: 5.1.1
