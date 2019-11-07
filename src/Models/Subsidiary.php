@@ -53,6 +53,20 @@ class Subsidiary extends DataObject
         'Title',
     ];
 
+    public function fieldLabels($includerelations = true)
+    {
+        $labels = parent::fieldLabels($includerelations);
+        $labels = array_merge($labels, [
+            'SubNo'          => _t(self::class . '.SubNo', 'SubNo'),
+            'Title'          => _t(self::class . '.Title', 'Title'),
+            'Lead'           => _t(self::class . '.Lead', 'Lead'),
+            'AnnexChapterID' => _t(self::class . '.AnnexChapter', 'AnnexChapter'),
+            'SubChapter'     => _t(self::class . '.SubChapter', 'SubChapter'),
+        ]);
+
+        return $labels;
+    }
+
     public function getCMSFields()
     {
         $fields = parent::getCMSFields();
@@ -82,7 +96,7 @@ class Subsidiary extends DataObject
     {
         parent::onBeforeWrite();
         $sub = (int)substr($this->SubNo, -1);
-        if (!$this->SubChapter()->count && $sub === 1) {
+        if (!$this->SubChapter()->exists() && $sub === 1) {
             $find = substr($this->SubNo, 0, -2);
             $subChapter = SubChapter::get()->filter(['SubNo' => $find])->first();
             if ($subChapter) {
@@ -96,6 +110,7 @@ class Subsidiary extends DataObject
         if (!static::$teams) {
             static::$teams = Team::get();
         }
+
         return static::$teams;
     }
 }

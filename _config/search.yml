@@ -1,0 +1,35 @@
+---
+Name: AppSearch
+After:
+  - 'SolrSearch'
+---
+Firesphere\SolrSearch\Indexes\BaseIndex:
+  PolicyIndex:
+    Classes:
+      - SilverStripe\CMS\Model\SiteTree
+    FulltextFields:
+      - Title
+      - SearchElements
+      - Author.Name
+      - Annex.Title
+      - Annex.AnnexChapters.Title
+      - Annex.AnnexChapters.AnnexNo
+      - Annex.AnnexChapters.Subsidiaries.Title
+      - Annex.AnnexChapters.Subsidiaries.SubNo
+      - Subsidiaries.Title
+    FilterFields:
+      - Created
+      - LastEdited
+    CopyFields:
+      _text:
+        - '*'
+    DefaultField: _text
+    FacetFields:
+      SilverStripe\CMS\Model\SiteTree:
+        Field: ParentID
+        Title: Parent
+# Should move to example docs
+Firesphere\SolrSearch\Services\SolrCoreService:
+  store:
+    mode: 'file'
+    path: '/var/solr/data'

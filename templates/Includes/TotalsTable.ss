@@ -17,35 +17,35 @@
             <% loop $Annex.Teams %>
                 <td class="r team $FirstLast">$TotalItems('R')</td>
             <% end_loop %>
-            <td class="text-right">$Totals('R')</td>
+            <td class="text-right">$getTotals('R')</td>
         </tr>
         <tr>
             <td class="text-left">Number of accountabilities</td>
             <% loop $Annex.Teams %>
                 <td class="a team $FirstLast">$TotalItems('A')</td>
             <% end_loop %>
-            <td class="text-right">$Totals('A')</td>
+            <td class="text-right">$getTotals('A')</td>
         </tr>
         <tr>
             <td class="text-left">Number of controls supported</td>
             <% loop $Annex.Teams %>
                 <td class="s team $FirstLast">$TotalItems('S')</td>
             <% end_loop %>
-            <td class="text-right">$Totals('S')</td>
+            <td class="text-right">$getTotals('S')</td>
         </tr>
         <tr>
             <td class="text-left">Number of controls on which consulted</td>
             <% loop $Annex.Teams %>
                 <td class="c team $FirstLast">$TotalItems('C')</td>
             <% end_loop %>
-            <td class="text-right">$Totals('C')</td>
+            <td class="text-right">$getTotals('C')</td>
         </tr>
         <tr>
             <td class="text-left">Number of controls of which informed</td>
             <% loop $Annex.Teams %>
                 <td class="i team $FirstLast">$TotalItems('I')</td>
             <% end_loop %>
-            <td class="text-right">$Totals('I')</td>
+            <td class="text-right">$getTotals('I')</td>
         </tr>
         </tbody>
     </table>

@@ -2,11 +2,12 @@
     "name": "firesphere/iso-compliance",
     "description": "SilverStripe module to manage ISO27k1 compliance",
     "type": "silverstripe-vendormodule",
-    "license": "BSD-3-Clause",
+    "license": "AGPL-3.0-or-later",
     "keywords": [
         "silverstripe",
         "iso27k1",
-        "iso27001"
+        "iso27001",
+        "RASCI"
     ],
     "authors": [
         {
@@ -14,6 +15,11 @@
             "email": "simonerkelens@catalyst.net.nz"
         }
     ],
+    "require": {
+        "silverstripe/recipe-plugin": "^1.2",
+        "silverstripe/recipe-cms": "^4",
+        "symbiote/silverstripe-gridfieldextensions": "^3"
+    },
     "require-dev": {
         "phpunit/phpunit": "^5.7",
         "scriptfusion/phpunit-immediate-exception-printer": "^1",

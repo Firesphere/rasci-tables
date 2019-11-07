@@ -171,7 +171,7 @@ class SubChapter extends DataObject
         ],
         [
             'SubNo' => '18.2',
-            'Title' => 'Information security reviews'
-        ]
+            'Title' => 'Information security reviews',
+        ],
     ];
 }
