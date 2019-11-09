@@ -1,10 +1,11 @@
-<tr class="alert alert-dark">
+<tr class="table-active">
     <td class="subsidiary_number"><code>$SubNo</code></td>
-    <td colspan="$AnnexChapter.AnnexSet.getTeamCount(4)" class="subsidiary_title">
-        $Title
+    <td class="subsidiary_title">$Title</td>
+    <td colspan="$AnnexChapter.getTeamCount()">
         <% if $Description %>
             <b>Objective:</b>
             $Description
         <% end_if %>
     </td>
+    <td colspan="2"></td>
 </tr>

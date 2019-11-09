@@ -1,4 +1,4 @@
-<td id="$ID-$Subsidiary" class="team $FirstLast
+<td id="$ID-$Subsidiary" class="team $FirstLast $EvenOdd
 <% if $IsSelected('R', $Subsidiary) %>r<% end_if %>
 <% if $IsSelected('A', $Subsidiary) %>a<% end_if %>
 <% if $IsSelected('S', $Subsidiary) %>s<% end_if %>

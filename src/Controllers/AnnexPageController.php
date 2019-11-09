@@ -70,6 +70,11 @@ class AnnexPageController extends PageController
      */
     public function getTotals($type)
     {
-        return $this->dataRecord->RASCI()->filter(['Value' => $type])->count();
+        return $this->RASCI()->filter(['Value' => $type])->count();
+    }
+
+    public function getTotalRASCI()
+    {
+        return $this->RASCI()->count();
     }
 }

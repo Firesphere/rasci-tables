@@ -5,6 +5,7 @@ namespace Firesphere\ISO27001Compliance\Models;
 
 
 use Firesphere\ISO27001Compliance\Pages\AnnexPage;
+use SilverStripe\ORM\ArrayList;
 use SilverStripe\ORM\DataList;
 use SilverStripe\ORM\DataObject;
 use SilverStripe\ORM\ManyManyList;
@@ -20,8 +21,11 @@ use SilverStripe\Security\Member;
  */
 class AnnexSet extends DataObject
 {
+    /**
+     * @var array|ArrayList
+     */
+    public static $teams = [];
     protected static $teamCount = false;
-
     private static $table_name = 'ISO27k1AnnexSet';
 
     private static $db = [
@@ -76,5 +80,14 @@ class AnnexSet extends DataObject
         }
 
         return static::$teamCount + $plus;
+    }
+
+    public function getCachedTeams()
+    {
+        if (!static::$teams) {
+            static::$teams = ArrayList::create($this->Teams()->toArray());
+        }
+
+        return static::$teams;
     }
 }

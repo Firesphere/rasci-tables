@@ -4,6 +4,7 @@
 namespace Firesphere\ISO27001Compliance\Models;
 
 
+use SilverStripe\Control\Controller;
 use SilverStripe\ORM\DataList;
 use SilverStripe\ORM\DataObject;
 use SilverStripe\ORM\ManyManyList;
@@ -82,7 +83,14 @@ class Team extends DataObject
 
     public function TotalItems($val)
     {
-        return $this->RASCI()->filter(['Value' => $val])->count();
+        $id = Controller::curr()->ID;
+        return $this->RASCI()->filter(['Value' => $val, 'AnnexPageID' => $id])->count();
+    }
+
+    public function TotalRASCI()
+    {
+        $id = Controller::curr()->ID;
+        return $this->RASCI()->filter(['AnnexPageID' => $id])->count();
     }
 
     public function IsSelected($val, $subsidiary)

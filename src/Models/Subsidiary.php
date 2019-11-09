@@ -5,6 +5,7 @@ namespace Firesphere\ISO27001Compliance\Models;
 
 
 use Firesphere\ISO27001Compliance\Pages\PolicyPage;
+use SilverStripe\ORM\ArrayList;
 use SilverStripe\ORM\DataList;
 use SilverStripe\ORM\DataObject;
 use SilverStripe\ORM\ManyManyList;
@@ -52,6 +53,14 @@ class Subsidiary extends DataObject
         'SubNo',
         'Title',
     ];
+
+    /**
+     * @return array|ArrayList
+     */
+    public static function getSubsidiaryTeams()
+    {
+        return AnnexSet::$teams;
+    }
 
     public function fieldLabels($includerelations = true)
     {
@@ -103,14 +112,5 @@ class Subsidiary extends DataObject
                 $this->SubChapterID = $subChapter->ID;
             }
         }
-    }
-
-    public function getSubsidiaryTeam()
-    {
-        if (!static::$teams) {
-            static::$teams = Team::get();
-        }
-
-        return static::$teams;
     }
 }
