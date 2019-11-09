@@ -8,8 +8,7 @@ use Firesphere\ISO27001Compliance\Controllers\AnnexPageController;
 use Firesphere\ISO27001Compliance\Models\AnnexSet;
 use Firesphere\ISO27001Compliance\Models\RASCI;
 use Page;
-use SilverStripe\ORM\HasManyList;
-use SilverStripe\Security\Member;
+use SilverStripe\ORM\DataList;
 
 /**
  * Class \Firesphere\ISO27001Compliance\Pages\AnnexPage
@@ -66,6 +65,6 @@ class AnnexPage extends Page
      */
     public function cacheKey()
     {
-        return $this->RASCI()->max('LastEdited');
+        return md5($this->ID . $this->RASCI()->max('LastEdited'));
     }
 }

@@ -53,7 +53,7 @@
                 -o-transform: skew(-45deg);
                 transform: skew(-45deg);
                 overflow: hidden;
-                border-left: 1px solid darkgray;
+                border-left: 1px solid #7abfc5;
             }
 
             span {
@@ -72,7 +72,7 @@
             }
 
             &.last div {
-                border-right: 1px solid darkgray;
+                border-right: 1px solid #7abfc5;
             }
         }
     }

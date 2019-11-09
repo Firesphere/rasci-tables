@@ -1,6 +1,6 @@
 const dropdowns = Array.from(document.getElementsByClassName('rasci-value'));
 const savebuttons = Array.from(document.getElementsByClassName('savebutton'));
-const form = document.getElementById('Form_SaveForm')
+const form = document.getElementById('Form_SaveForm');
 const table = document.getElementById('totals-table');
 
 export default function () {

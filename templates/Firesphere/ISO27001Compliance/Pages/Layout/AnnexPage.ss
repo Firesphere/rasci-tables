@@ -34,7 +34,7 @@
                     <tr class="alert alert-primary">
                         <th rowspan="2">Annex</th>
                         <th rowspan="2">Section of ISO/IEC 27001:2013</th>
-                        <% loop $Teams %>
+                        <% loop $CachedTeams %>
                             <th rowspan="2" class="rotate-45 rasci_team $FirstLast">
                                 <div><span>$Name</span></div>
                             </th>
@@ -46,31 +46,28 @@
                     <tbody>
                         <% loop $AnnexChapters %>
                         <tr class="table-info">
-                            <td colspan="$AnnexSet.getTeamCount(2)"><b>Annex A.$AnnexNo: $Title</b></td>
+                            <td colspan="2"><b>Annex A.$AnnexNo: $Title</b></td>
+                            <td colspan="$Up.getTeamCount()"></td>
                             <td colspan="2"><a href="$Reference" target="_blank">Reference for Annex $AnnexNo</a></td>
                         </tr>
                             <% loop $Subsidiaries %>
                                 <% if $SubChapterID %>
                                     <% with $SubChapter %>
-                                        <% include SubChapter AnnexChapter=$Up.AnnexChapter %>
+                                        <% include SubChapter AnnexChapter=$Up.Up.Up %>
                                     <% end_with %>
                                 <% end_if %>
                             <tr class="$EvenOdd">
                                 <td class="subsidiary_number"><code>$SubNo</code></td>
                                 <td class="subsidiary_title">$Title</td>
-                                <% loop $SubsidiaryTeam %>
+                                <% loop $getSubsidiaryTeams %>
                                     <% include SubsidiaryRasci Subsidiary=$Up.ID %>
                                 <% end_loop %>
                                 <td colspan="2" class="subsidiary_reference">
                                     $Lead
-                                    <% if $PolicyPages %>
+                                    <% if $PolicyPages.Count %>
                                         <% if $Lead %><br/><% end_if %>
-                                        Related
-                                        <% if $PolicyPages.Count > 1 %>
-                                            Policies:
-                                        <% else %>
-                                            Policy:
-                                        <% end_if %><br />
+                                        Related Policies:
+                                        <br />
                                         <% loop $PolicyPages %>
                                             <a href="$Link" class="$FirstLast">$Title</a><% if not $Last %>, <% end_if %>
                                         <% end_loop %>
