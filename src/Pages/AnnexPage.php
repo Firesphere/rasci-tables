@@ -7,7 +7,10 @@ namespace Firesphere\ISO27001Compliance\Pages;
 use Firesphere\ISO27001Compliance\Controllers\AnnexPageController;
 use Firesphere\ISO27001Compliance\Models\AnnexSet;
 use Firesphere\ISO27001Compliance\Models\RASCI;
+use Firesphere\ISO27001Compliance\Models\Subsidiary;
 use Page;
+use SilverStripe\Control\Controller;
+use SilverStripe\ORM\ArrayList;
 use SilverStripe\ORM\DataList;
 
 /**
@@ -26,6 +29,13 @@ class AnnexPage extends Page
     private static $plural_name = 'RASCI Pages';
 
     private static $description = 'Tool page for assigning the RASCI to Annexes of the ISO27001';
+
+    /**
+     * @var array|ArrayList
+     */
+    protected static $compareTeamRASCI = [];
+
+    protected static $subNoSubs = [];
 
     private static $has_one = [
         'Annex' => AnnexSet::class,
@@ -65,6 +75,39 @@ class AnnexPage extends Page
      */
     public function cacheKey()
     {
-        return md5($this->ID . $this->RASCI()->max('LastEdited'));
+        return md5(
+            $this->ID .
+            $this->RASCI()->max('LastEdited') .
+            Controller::curr()->getRequest()->getVar('compare')
+        );
+    }
+
+    public function CompareValue($subsidiary, $team)
+    {
+        if (!isset(static::$subNoSubs[$subsidiary])) {
+            $rasciSub = Subsidiary::get()->byID($subsidiary);
+            static::$subNoSubs[$subsidiary] = Subsidiary::get()
+                ->filter(['SubNo' => $rasciSub->SubNo])
+                ->column('ID');
+        }
+
+        $RASCI = $this->RASCI()->filter(['SubsidiaryID' => static::$subNoSubs[$subsidiary], 'TeamID' => $team])->first();
+
+        return $RASCI ? $RASCI->Value : false;
+    }
+
+
+    /**
+     * @param $type
+     * @return int
+     */
+    public function getTotals($type)
+    {
+        return $this->RASCI()->filter(['Value' => $type])->count();
+    }
+
+    public function getTotalRASCI()
+    {
+        return $this->RASCI()->count();
     }
 }

@@ -5,6 +5,7 @@ namespace Firesphere\ISO27001Compliance\Models;
 
 
 use Firesphere\ISO27001Compliance\Pages\AnnexPage;
+use SilverStripe\Control\Controller;
 use SilverStripe\ORM\ArrayList;
 use SilverStripe\ORM\DataList;
 use SilverStripe\ORM\DataObject;
@@ -75,11 +76,15 @@ class AnnexSet extends DataObject
 
     public function getTeamCount($plus = 0)
     {
+        $multiplier = 1;
         if (static::$teamCount === false) {
-            static::$teamCount = $this->Teams()->count();
+            if (Controller::curr()->compare) {
+                $multiplier = 2;
+            }
+            static::$teamCount = $this->Teams()->count() * $multiplier;
         }
 
-        return static::$teamCount + $plus;
+        return static::$teamCount + ($plus * $multiplier);
     }
 
     public function getCachedTeams()

@@ -3,7 +3,7 @@
     <table class="table-bordered table-striped table-hover table-header-rotated" id="totals-table">
         <thead>
         <tr class=" alert alert-primary">
-            <th></th>
+            <th>$Up.Title</th>
             <% loop $CachedTeams %>
                 <th class="rotate-45 $FirstLast">
                     <div><span>$Name</span></div>

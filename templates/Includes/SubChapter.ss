@@ -7,5 +7,7 @@
             $Description
         <% end_if %>
     </td>
+    <% if not $Comparing %>
     <td colspan="2"></td>
+    <% end_if %>
 </tr>

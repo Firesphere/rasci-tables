@@ -1,1 +1,144 @@
-tr td.savebutton,tr th.savebutton{display:none;border:none}tr td.team{text-align:center;min-width:80px}tr td.r{background-color:#00b050}tr td.a{background-color:#f33}tr td.a,tr td.a select{color:#fff}tr td.s{background-color:#ffc000}tr td.c{background-color:#96c090}tr td.i{background-color:#bfbfbf}tr td.subsidiary_title{width:10px;white-space:nowrap}form#Form_SaveForm thead tr{position:-webkit-sticky;position:sticky;top:0;z-index:25}.table-header-rotated th.row-header{width:auto}.table-header-rotated td{border-top:1px solid #dee2e6;border-left:1px solid #dee2e6;border-right:1px solid #dee2e6;vertical-align:middle}.table-header-rotated td.subsidiary_number{width:80px;text-align:right}.table-header-rotated td.subsidiary_reference{vertical-align:top}.table-header-rotated td p{margin-bottom:0}.table-header-rotated th.subsidiary_number{width:80px;text-align:right}.table-header-rotated th.text-center{padding-left:40px}.table-header-rotated th.rotate-45{height:126px;position:relative;padding:0;font-weight:700;width:5rem;font-size:.95rem}.table-header-rotated th.rotate-45>div{position:relative;top:0;left:61px;height:100%;-webkit-transform:skew(-45deg);transform:skew(-45deg);overflow:hidden;border-left:1px solid #7abfc5}.table-header-rotated th.rotate-45 span{-webkit-transform:skew(45deg) rotate(315deg);transform:skew(45deg) rotate(315deg);position:absolute;bottom:30px;left:-7px;display:inline-block;width:7rem;text-align:left;padding-bottom:10px}.table-header-rotated th.rotate-45.last div{border-right:1px solid #7abfc5}th.subsidiary_number{width:80px;text-align:right}
+tr td.savebutton,
+tr th.savebutton {
+  display: none;
+  border: none;
+}
+
+tr td.team {
+  text-align: center;
+  min-width: 80px;
+}
+
+tr td.r {
+  background-color: #00b050;
+}
+
+tr td.a {
+  background-color: #ff3333;
+  color: white;
+}
+
+tr td.a select {
+  color: white;
+}
+
+tr td.s {
+  background-color: #ffc000;
+}
+
+tr td.c {
+  background-color: #96c090;
+}
+
+tr td.i {
+  background-color: #bfbfbf;
+}
+
+tr td.subsidiary_title {
+  width: 10px;
+  white-space: nowrap;
+}
+
+form#Form_SaveForm thead tr {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 25;
+}
+
+table.compare {
+  max-width: calc(100% - 127px);
+}
+
+.table-header-rotated th.row-header {
+  width: auto;
+}
+
+.table-header-rotated td {
+  border-top: 1px solid #dee2e6;
+  border-left: 1px solid #dee2e6;
+  border-right: 1px solid #dee2e6;
+  vertical-align: middle;
+}
+
+.table-header-rotated td.subsidiary_number {
+  width: 80px;
+  text-align: right;
+}
+
+.table-header-rotated td.subsidiary_reference {
+  vertical-align: top;
+}
+
+.table-header-rotated td.comparison {
+  text-align: center;
+  border-left: 3px dotted #dee2e6;
+}
+
+.table-header-rotated td p {
+  margin-bottom: 0;
+}
+
+.table-header-rotated th.subsidiary_number {
+  min-width: 80px;
+  text-align: right;
+}
+
+.table-header-rotated th.text-center {
+  padding-left: 40px;
+}
+
+.table-header-rotated th.rotate-45 {
+  height: 126px;
+  position: relative;
+  padding: 0;
+  font-weight: bold;
+  width: 5rem;
+  font-size: 0.95rem;
+}
+
+.table-header-rotated th.rotate-45 > div {
+  position: relative;
+  top: 0;
+  left: 61px;
+  height: 100%;
+  -webkit-transform: skew(-45deg);
+  transform: skew(-45deg);
+  overflow: hidden;
+  border-left: 1px solid #7abfc5;
+}
+
+.table-header-rotated th.rotate-45.compare > div {
+  padding: 0;
+  border: none;
+  border-left: 3px dotted #7abfc5;
+  background-color: #cce4f2;
+  margin-left: -2px;
+}
+
+.table-header-rotated th.rotate-45 span {
+  -webkit-transform: skew(45deg) rotate(315deg);
+  transform: skew(45deg) rotate(315deg);
+  position: absolute;
+  bottom: 30px;
+  left: -7px;
+  display: inline-block;
+  width: 7rem;
+  text-align: left;
+  padding-bottom: 10px;
+}
+
+.table-header-rotated th.rotate-45.last div.NoCompare {
+  border-right: 1px solid #7abfc5;
+}
+
+.table-header-rotated th.rotate-45.last div.Compare {
+  border-right: 1px solid #cce4f2;
+  background-color: #cce4f2;
+}
+
+th.subsidiary_number {
+  width: 80px;
+  text-align: right;
+}
+

@@ -1,3 +1,8 @@
+table.compare {
+    // Total width is plus 122 px. Somehow, plus 127px is the magic number.
+    max-width: calc(100% - 127px);
+}
+
 .table-header-rotated {
     th.row-header {
         width: auto;
@@ -19,6 +24,11 @@
             }
         }
 
+        &.comparison {
+            text-align: center;
+            border-left: 3px dotted #dee2e6;
+        }
+
         p {
             margin-bottom: 0;
         }
@@ -26,7 +36,7 @@
 
     th {
         &.subsidiary_number {
-            width: 80px;
+            min-width: 80px;
             text-align: right;
         }
 
@@ -56,6 +66,14 @@
                 border-left: 1px solid #7abfc5;
             }
 
+            &.compare > div {
+                padding: 0;
+                border: none;
+                border-left: 3px dotted #7abfc5;
+                background-color: #cce4f2;
+                margin-left: -2px;
+            }
+
             span {
                 -ms-transform: skew(45deg) rotate(315deg);
                 -moz-transform: skew(45deg) rotate(315deg);
@@ -71,8 +89,13 @@
                 padding-bottom: 10px;
             }
 
-            &.last div {
+            &.last div.NoCompare {
                 border-right: 1px solid #7abfc5;
+            }
+
+            &.last div.Compare {
+                border-right: 1px solid #cce4f2;
+                background-color: #cce4f2;
             }
         }
     }
