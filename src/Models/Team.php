@@ -75,9 +75,11 @@ class Team extends DataObject
     public function onAfterWrite()
     {
         parent::onAfterWrite();
-        $sets = AnnexSet::get();
-        foreach ($sets as $set) {
-            $this->AnnexSet()->add($set);
+        if (!$this->AnnexSet()->count()) {
+            $sets = AnnexSet::get();
+            foreach ($sets as $set) {
+                $this->AnnexSet()->add($set);
+            }
         }
     }
 
@@ -93,16 +95,12 @@ class Team extends DataObject
         return $this->RASCI()->filter(['AnnexPageID' => $id])->count();
     }
 
-    public function IsSelected($val, $subsidiary)
+    public function SelectedRASCI($subsidiary)
     {
         if (!isset(static::$selected[$this->ID])) {
             static::$selected[$this->ID] = $this->RASCI()->map('SubsidiaryID', 'Value')->toArray();
         }
 
-        if (isset(static::$selected[$this->ID][$subsidiary])) {
-            return $val === static::$selected[$this->ID][$subsidiary];
-        }
-
-        return false;
+        return (isset(static::$selected[$this->ID][$subsidiary])) ? static::$selected[$this->ID][$subsidiary] : false;
     }
 }

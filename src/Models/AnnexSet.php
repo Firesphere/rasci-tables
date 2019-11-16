@@ -45,6 +45,9 @@ class AnnexSet extends DataObject
         'Teams' => Team::class,
     ];
 
+    /**
+     * @throws \SilverStripe\ORM\ValidationException
+     */
     public function onAfterWrite()
     {
         if (!$this->AnnexChapters()->count()) {
@@ -57,6 +60,8 @@ class AnnexSet extends DataObject
                 ])->write();
             }
 
+            // Default to adding all teams. It's easier to unlink later
+            // Than to add later
             foreach (Team::get() as $team) {
                 $this->Teams()->add($team);
             }

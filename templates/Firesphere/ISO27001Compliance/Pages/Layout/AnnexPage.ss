@@ -22,7 +22,34 @@
                         <br/>
                         <h4>Compare against another RASCI set</h4>
                         $CompareForm
-                        <p>Please note, comparing is a slow process, so please have a little bit of patience.</p>
+                        <% if $compare %>
+                            <br />
+                            <h2>Differences in teams</h2>
+                            <% if $NonBaseTeams || $comparePage.NonbaseTeams %>
+                                <div class="row">
+                                    <% if $NonBaseTeams %>
+                                        <div class="col-6">
+                                            <p>
+                                                Teams in $Top.Title but not in $Top.comparePage.Title:
+                                            <ul>
+                                                <% loop $NonBaseTeams %><li>$Name</li><% end_loop %>
+                                            </ul>
+                                            </p>
+                                        </div>
+                                    <% end_if %>
+                                    <% if $comparePage.NonBaseTeams %>
+                                        <div class="col-6">
+                                            <p>
+                                                Teams in $Top.comparePage.Title but not in $Top.Title:
+                                            <ul>
+                                                <% loop $comparePage.NonBaseTeams %><li>$Name</li><% end_loop %>
+                                            </ul>
+                                            </p>
+                                        </div>
+                                    <% end_if %>
+                                </div>
+                            <% end_if %>
+                        <% end_if %>
                     </div>
                 </div>
             </div>
@@ -31,7 +58,7 @@
     <form id="Form_SaveForm" action="$URLSegment/SaveForm/" method="post"
           enctype="application/x-www-form-urlencoded" class="col">
         <% if $compare %>
-            <h2>Comparing against $comparePage.Title</h2>
+            <h2>Comparing against <i>$comparePage.Title</i></h2>
         <% end_if %>
 
         <% cached $cacheKey %>
@@ -40,8 +67,8 @@
                     <thead>
                     <tr class="alert alert-primary">
                         <th rowspan="2"></th>
-                        <th rowspan="2">Section of ISO/IEC 27001:2013<br />$Up.Title
-                            <% if $Up.compare %><br />&nbsp;<i>&raquo; Comparing against:</i>
+                        <th rowspan="2">Section of ISO/IEC 27001:2013<br/>$Up.Title
+                            <% if $Up.compare %><br/>&nbsp;<i>&raquo; Comparing against:</i>
                                 $Up.comparePage.Title
                             <% end_if %>
                         </th>
@@ -52,7 +79,11 @@
                             </th>
                             <% if $Top.compare > 0 %>
                                 <th rowspan="2" class="rotate-45 rasci_team compare $FirstLast">
-                                    <div><span title="$Top.comparePage.Title"><i>Comparison</i></span></div>
+                                    <% if $Top.comparePage.hasTeam($Name) %>
+                                        <div><span title="$Top.comparePage.Title"><i>Comparison</i></span></div>
+                                    <% else %>
+                                        <div><span title="$Top.comparePage.Title"><i>Not a shared team</i></span></div>
+                                    <% end_if %>
                                 </th>
                             <% end_if %>
                         <% end_loop %>

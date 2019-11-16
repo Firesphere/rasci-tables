@@ -7,10 +7,9 @@ export default function () {
     dropdowns.forEach(item => {
         item.addEventListener("change", () => {
             const cell = item.closest('td');
-            const row = cell.closest('tr');
-            cell.classList.remove('r', 'a', 's', 'c', 'i');
+            cell.classList.remove('R', 'A', 'S', 'C', 'I');
             if (item.value) {
-                cell.classList.add(item.value[0].toLowerCase());
+                cell.classList.add(item.value[0].toUpperCase());
             }
             savebuttons.forEach(item => {
                 item.style.display = 'none';

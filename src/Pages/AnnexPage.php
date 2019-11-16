@@ -12,6 +12,7 @@ use Page;
 use SilverStripe\Control\Controller;
 use SilverStripe\ORM\ArrayList;
 use SilverStripe\ORM\DataList;
+use SilverStripe\View\ArrayData;
 
 /**
  * Class \Firesphere\ISO27001Compliance\Pages\AnnexPage
@@ -36,6 +37,8 @@ class AnnexPage extends Page
     protected static $compareTeamRASCI = [];
 
     protected static $subNoSubs = [];
+
+    protected static $teamNames = [];
 
     private static $has_one = [
         'Annex' => AnnexSet::class,
@@ -62,6 +65,26 @@ class AnnexPage extends Page
         parent::onBeforeWrite();
     }
 
+    public function onAfterWrite()
+    {
+        parent::onAfterWrite();
+        if ($this->isChanged('Title')) {
+            $this->Annex()->Title = $this->Title . ' Annex';
+            $this->Annex()->write();
+        }
+    }
+
+
+    public function getNonBaseTeams()
+    {
+        $isOtherTeam = $this->ID === Controller::curr()->dataRecord->ID;
+        if (!$isOtherTeam) {
+            $otherTeams = Controller::curr()->dataRecord->Annex()->Teams()->column('ID');
+        } else {
+            $otherTeams = Controller::curr()->comparePage->Annex()->Teams()->column('ID');
+        }
+        return $this->Annex()->Teams()->exclude(['ID' => $otherTeams]);
+    }
     /**
      * @return string
      */
@@ -84,6 +107,13 @@ class AnnexPage extends Page
 
     public function CompareValue($subsidiary, $team)
     {
+        if (!in_array($team, array_values(static::$teamNames))) {
+            return 'striped';
+        }
+
+        if (empty(static::$compareTeamRASCI)) {
+            static::$compareTeamRASCI = ArrayList::create($this->RASCI()->toArray());
+        }
         if (!isset(static::$subNoSubs[$subsidiary])) {
             $rasciSub = Subsidiary::get()->byID($subsidiary);
             static::$subNoSubs[$subsidiary] = Subsidiary::get()
@@ -91,11 +121,23 @@ class AnnexPage extends Page
                 ->column('ID');
         }
 
-        $RASCI = $this->RASCI()->filter(['SubsidiaryID' => static::$subNoSubs[$subsidiary], 'TeamID' => $team])->first();
+        $RASCI = static::$compareTeamRASCI->filter(['SubsidiaryID' => static::$subNoSubs[$subsidiary], 'TeamID' => $team])->first();
 
-        return $RASCI ? $RASCI->Value : false;
+        return $RASCI ? $RASCI->Value : 'striped';
     }
 
+    /**
+     * Check if this Annex has a team with the same name
+     * @param $title
+     * @return \SilverStripe\ORM\DataObject|null
+     */
+    public function hasTeam($title)
+    {
+        if (!static::$teamNames) {
+            static::$teamNames = $this->Annex()->Teams()->map('Name', 'ID')->toArray();
+        }
+        return array_key_exists($title, static::$teamNames);
+    }
 
     /**
      * @param $type

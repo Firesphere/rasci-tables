@@ -59,11 +59,13 @@ class AnnexPageController extends PageController
         $comparison = AnnexPage::get()->exclude(['ID' => $this->ID])->map('ID', 'Title')->toArray();
         if (count($comparison)) {
             $fields = FieldList::create([
-                $select = DropdownField::create('compare', '', $comparison)
+                $select = DropdownField::create('compare', '', $comparison, $this->compare)
             ]);
 
             $select->setDescription(_t(static::class . '.COMPAREWARNING',
-                'Warning, this only works for the same teams. Any team from another set that are not in this set, or vice-versa, will be ignored'));
+                '<b>Note</b><br />This only compares teams that are in both sets.<br /> 
+                Any team from the set that are not in this set, will be ignored.
+                Teams that are in this set, but not in the other set, will be marked as not being a shared team.'));
             $select->setEmptyString('-- Select an Annex set to compare against --');
 
             $actions = FieldList::create([FormAction::create('go', 'Compare')]);

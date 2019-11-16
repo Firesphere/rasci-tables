@@ -103,11 +103,10 @@ var table = document.getElementById('totals-table');
   dropdowns.forEach(function (item) {
     item.addEventListener("change", function () {
       var cell = item.closest('td');
-      var row = cell.closest('tr');
-      cell.classList.remove('r', 'a', 's', 'c', 'i');
+      cell.classList.remove('R', 'A', 'S', 'C', 'I');
 
       if (item.value) {
-        cell.classList.add(item.value[0].toLowerCase());
+        cell.classList.add(item.value[0].toUpperCase());
       }
 
       savebuttons.forEach(function (item) {
