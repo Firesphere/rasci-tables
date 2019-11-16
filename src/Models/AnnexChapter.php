@@ -3,7 +3,6 @@
 
 namespace Firesphere\ISO27001Compliance\Models;
 
-
 use SilverStripe\ORM\DataList;
 use SilverStripe\ORM\DataObject;
 use SilverStripe\ORM\ValidationException;
@@ -21,7 +20,6 @@ use SilverStripe\Security\Member;
  */
 class AnnexChapter extends DataObject
 {
-
     private static $table_name = 'ISO27k1Chapter';
 
     private static $db = [

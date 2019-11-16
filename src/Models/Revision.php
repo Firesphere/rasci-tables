@@ -3,7 +3,6 @@
 
 namespace Firesphere\ISO27001Compliance\Models;
 
-
 use Firesphere\ISO27001Compliance\Pages\PolicyPage;
 use SilverStripe\ORM\DataObject;
 use SilverStripe\Security\Member;

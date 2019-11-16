@@ -3,7 +3,6 @@
 
 namespace Firesphere\ISO27001Compliance\Pages;
 
-
 use Firesphere\ISO27001Compliance\Controllers\AnnexPageController;
 use Firesphere\ISO27001Compliance\Models\AnnexSet;
 use Firesphere\ISO27001Compliance\Models\RASCI;
@@ -12,7 +11,6 @@ use Page;
 use SilverStripe\Control\Controller;
 use SilverStripe\ORM\ArrayList;
 use SilverStripe\ORM\DataList;
-use SilverStripe\View\ArrayData;
 
 /**
  * Class \Firesphere\ISO27001Compliance\Pages\AnnexPage
@@ -85,6 +83,7 @@ class AnnexPage extends Page
         }
         return $this->Annex()->Teams()->exclude(['ID' => $otherTeams]);
     }
+
     /**
      * @return string
      */
@@ -121,7 +120,10 @@ class AnnexPage extends Page
                 ->column('ID');
         }
 
-        $RASCI = static::$compareTeamRASCI->filter(['SubsidiaryID' => static::$subNoSubs[$subsidiary], 'TeamID' => $team])->first();
+        $RASCI = static::$compareTeamRASCI->filter([
+            'SubsidiaryID' => static::$subNoSubs[$subsidiary],
+            'TeamID'       => $team
+        ])->first();
 
         return $RASCI ? $RASCI->Value : 'striped';
     }

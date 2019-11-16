@@ -3,7 +3,6 @@
 
 namespace Firesphere\ISO27001Compliance\Controllers;
 
-
 use Firesphere\ISO27001Compliance\Models\RASCI;
 use Firesphere\ISO27001Compliance\Pages\AnnexPage;
 use PageController;
@@ -62,10 +61,12 @@ class AnnexPageController extends PageController
                 $select = DropdownField::create('compare', '', $comparison, $this->compare)
             ]);
 
-            $select->setDescription(_t(static::class . '.COMPAREWARNING',
+            $select->setDescription(_t(
+                static::class . '.COMPAREWARNING',
                 '<b>Note</b><br />This only compares teams that are in both sets.<br /> 
-                Any team from the set that are not in this set, will be ignored.
-                Teams that are in this set, but not in the other set, will be marked as not being a shared team.'));
+                Any team from the compared set that are not in this set, will be ignored.
+                Teams that are in this set, but not in the other set, will be marked as not being a shared team.'
+            ));
             $select->setEmptyString('-- Select an Annex set to compare against --');
 
             $actions = FieldList::create([FormAction::create('go', 'Compare')]);
@@ -94,8 +95,12 @@ class AnnexPageController extends PageController
         foreach ($data['rasci-value'] as $value) {
             if ($value !== '') {
                 $values = explode('-', $value);
-                $items[] = RASCI::findOrCreate($values[0], (int)$values[1], (int)$values[2],
-                    (int)$this->dataRecord->ID);
+                $items[] = RASCI::findOrCreate(
+                    $values[0],
+                    (int)$values[1],
+                    (int)$values[2],
+                    (int)$this->dataRecord->ID
+                );
             }
         }
 

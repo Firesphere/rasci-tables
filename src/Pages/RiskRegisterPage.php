@@ -3,7 +3,6 @@
 
 namespace Firesphere\ISO27001Compliance\Pages;
 
-
 use Firesphere\ISO27001Compliance\Models\Risk;
 use Page;
 use SilverStripe\ORM\DataList;
@@ -20,5 +19,4 @@ class RiskRegisterPage extends Page
     private static $has_many = [
         'Risks' => Risk::class,
     ];
-
 }

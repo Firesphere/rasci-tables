@@ -3,7 +3,6 @@
 
 namespace Firesphere\ISO27001Compliance\Models;
 
-
 use Firesphere\ISO27001Compliance\Pages\PolicyPage;
 use SilverStripe\ORM\ArrayList;
 use SilverStripe\ORM\DataList;
@@ -26,7 +25,6 @@ use SilverStripe\Security\Member;
  */
 class Subsidiary extends DataObject
 {
-
     protected static $teams = false;
     private static $table_name = 'ISO27k1Subsidiary';
 

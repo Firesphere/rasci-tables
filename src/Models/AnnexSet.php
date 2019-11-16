@@ -3,7 +3,6 @@
 
 namespace Firesphere\ISO27001Compliance\Models;
 
-
 use Firesphere\ISO27001Compliance\Pages\AnnexPage;
 use SilverStripe\Control\Controller;
 use SilverStripe\ORM\ArrayList;

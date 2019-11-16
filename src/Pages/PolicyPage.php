@@ -3,7 +3,6 @@
 
 namespace Firesphere\ISO27001Compliance\Pages;
 
-
 use Firesphere\ISO27001Compliance\Models\Revision;
 use Firesphere\ISO27001Compliance\Models\Subsidiary;
 use Page;
@@ -32,7 +31,6 @@ use Symbiote\GridFieldExtensions\GridFieldTitleHeader;
  */
 class PolicyPage extends Page
 {
-
     private static $table_name = 'ISO27k1PolicyPage';
 
     private static $has_many = [

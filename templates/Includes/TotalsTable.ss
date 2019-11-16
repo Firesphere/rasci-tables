@@ -6,7 +6,7 @@
             <th>$Up.Title</th>
             <% loop $CachedTeams %>
                 <th class="rotate-45 $FirstLast">
-                    <div><span>$Name</span></div>
+                    <div class="NoCompare"><span>$Name</span></div>
                 </th>
             <% end_loop %>
             <th class="text-center">Total responsibilities</th>

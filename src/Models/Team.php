@@ -3,7 +3,6 @@
 
 namespace Firesphere\ISO27001Compliance\Models;
 
-
 use SilverStripe\Control\Controller;
 use SilverStripe\ORM\DataList;
 use SilverStripe\ORM\DataObject;
