@@ -3,9 +3,14 @@
 
 namespace Firesphere\ISO27001Compliance\Controllers;
 
+use Firesphere\ISO27001Compliance\Models\AnnexChapter;
+use Firesphere\ISO27001Compliance\Models\AnnexSet;
 use Firesphere\ISO27001Compliance\Models\RASCI;
+use Firesphere\ISO27001Compliance\Models\Subsidiary;
+use Firesphere\ISO27001Compliance\Models\Team;
 use Firesphere\ISO27001Compliance\Pages\AnnexPage;
 use PageController;
+use SilverStripe\Control\HTTPStreamResponse;
 use SilverStripe\Forms\DropdownField;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\Form;
@@ -20,19 +25,21 @@ use SilverStripe\View\Requirements;
  */
 class AnnexPageController extends PageController
 {
+    private static $allowed_actions = [
+        'SaveForm',
+        'getCSVFormat',
+        'downloadcsv',
+        'loadcsv',
+        'downloadods'
+    ];
     /**
      * @var int|null
      */
     public $compare = 0;
-
     /**
      * @var null|AnnexPage
      */
     public $comparePage;
-
-    private static $allowed_actions = [
-        'SaveForm',
-    ];
 
     public function init()
     {
@@ -109,5 +116,85 @@ class AnnexPageController extends PageController
         }
 
         return $this->renderWith('Includes/TotalsTable');
+    }
+
+    public function getCSVFormat()
+    {
+        $teams = Team::get()->column('Name');
+        $data = $this->getBaseCSV($teams);
+        $filename = TEMP_FOLDER . '/rasci.csv';
+        $handle = fopen($filename, 'w+');
+        $response = $this->getStreamResponse($handle, 'rasci.csv');
+        foreach ($data as $set) {
+            fputcsv($handle, $set);
+        }
+
+        return $response;
+    }
+
+    /**
+     * @param array $teams
+     * @return array
+     */
+    public function getBaseCSV(array $teams)
+    {
+        $annexes = AnnexChapter::config()->get('subsidiaries');
+
+        $data = [
+            array_merge(['', '',], $teams),
+        ];
+        foreach ($annexes as $chapter => $annex) {
+            $data[] = ['', 'Annex A.' . $chapter];
+            foreach ($annex as $subsidiary) {
+                $data[] = [$subsidiary['SubNo'], $subsidiary['Title']];
+            }
+        }
+
+        return $data;
+    }
+
+    public function downloadcsv()
+    {
+        /** @var AnnexSet $annexSet */
+        $annexSet = $this->dataRecord->Annex();
+        $teams = $annexSet->Teams();
+
+        $baseCSV = $this->getBaseCSV($teams->column('Name'));
+        $chapters = $annexSet->AnnexChapters()->column('ID');
+        $subsidiaries = Subsidiary::get()->filter(['AnnexChapterID' => $chapters]);
+        $name = urlencode($annexSet->Title) . '.csv';
+        $filename = TEMP_FOLDER . '/' . $name;
+        $handle = fopen($filename, 'w+');
+        $response = $this->getStreamResponse($handle, $name);
+        foreach ($baseCSV as &$row) {
+            if ($row[0] !== '') {
+                $subsidiary = $subsidiaries->find('SubNo', $row[0]);
+                $i = 3;
+                foreach ($teams as $team) {
+                    $row[$i++] = $team->SelectedRASCI($subsidiary->ID);
+                }
+            }
+        }
+
+        foreach ($baseCSV as $item) {
+            fputcsv($handle, $item);
+        }
+
+        return $response;
+    }
+
+    /**
+     * @param $handle
+     * @param $name
+     * @return HTTPStreamResponse
+     */
+    public function getStreamResponse($handle, $name)
+    {
+        $response = new HTTPStreamResponse($handle, null);
+        $response->addHeader('Content-Type', 'application/octet-stream');
+        $response->addHeader("Content-Transfer-Encoding", "Binary");
+        $response->addHeader("Content-disposition", 'attachment; filename="' . $name . '"');
+
+        return $response;
     }
 }

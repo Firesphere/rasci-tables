@@ -85,12 +85,14 @@ class Team extends DataObject
     public function TotalItems($val)
     {
         $id = Controller::curr()->ID;
+
         return $this->RASCI()->filter(['Value' => $val, 'AnnexPageID' => $id])->count();
     }
 
     public function TotalRASCI()
     {
         $id = Controller::curr()->ID;
+
         return $this->RASCI()->filter(['AnnexPageID' => $id])->count();
     }
 

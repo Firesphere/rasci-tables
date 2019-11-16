@@ -18,12 +18,15 @@
                             <b>Informed</b> i.e. this role has an interest in the status of the risks in this section
                             and should be kept in touch with the situation.<br/>' %>
                         </p>
+                        <p>
+                            <a href="$Link('getCSVFormat')"><%t AnnexPage.CSVEXAMPLE 'Download CSV format for importing' %></a>
+                        </p>
                         <h3>WARNING This page does not work well on mobile devices or small screens.</h3>
                         <br/>
                         <h4>Compare against another RASCI set</h4>
                         $CompareForm
                         <% if $compare %>
-                            <br />
+                            <br/>
                             <h2>Differences in teams</h2>
                             <% if $NonBaseTeams || $comparePage.NonbaseTeams %>
                                 <div class="row">
@@ -32,7 +35,8 @@
                                             <p>
                                                 Teams in $Top.Title but not in $Top.comparePage.Title:
                                             <ul>
-                                                <% loop $NonBaseTeams %><li>$Name</li><% end_loop %>
+                                                <% loop $NonBaseTeams %>
+                                                    <li>$Name</li><% end_loop %>
                                             </ul>
                                             </p>
                                         </div>
@@ -42,7 +46,8 @@
                                             <p>
                                                 Teams in $Top.comparePage.Title but not in $Top.Title:
                                             <ul>
-                                                <% loop $comparePage.NonBaseTeams %><li>$Name</li><% end_loop %>
+                                                <% loop $comparePage.NonBaseTeams %>
+                                                    <li>$Name</li><% end_loop %>
                                             </ul>
                                             </p>
                                         </div>
@@ -133,6 +138,15 @@
                             <% end_loop %>
                         <% end_loop %>
                     </tbody>
+                    <% if not $compare %>
+                        <tfoot>
+                        <tr>
+                            <td colspan="2"></td>
+                            <td colspan="$getTeamCount()"></td>
+                            <td colspan="2" class="text-right"><a href="$Top.Link('downloadcsv')">Download CSV</a></td>
+                        </tr>
+                        </tfoot>
+                    <% end_if %>
                 </table>
             <% end_with %>
         <% end_cached %>

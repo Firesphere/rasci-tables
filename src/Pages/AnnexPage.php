@@ -21,23 +21,16 @@ use SilverStripe\ORM\DataList;
  */
 class AnnexPage extends Page
 {
-    private static $table_name = 'ISO27k1AnnexPage';
-
-    private static $singular_name = "RASCI Page";
-
-    private static $plural_name = 'RASCI Pages';
-
-    private static $description = 'Tool page for assigning the RASCI to Annexes of the ISO27001';
-
+    public static $teamNames = [];
     /**
      * @var array|ArrayList
      */
     protected static $compareTeamRASCI = [];
-
     protected static $subNoSubs = [];
-
-    protected static $teamNames = [];
-
+    private static $table_name = 'ISO27k1AnnexPage';
+    private static $singular_name = "RASCI Page";
+    private static $plural_name = 'RASCI Pages';
+    private static $description = 'Tool page for assigning the RASCI to Annexes of the ISO27001';
     private static $has_one = [
         'Annex' => AnnexSet::class,
     ];
@@ -81,6 +74,7 @@ class AnnexPage extends Page
         } else {
             $otherTeams = Controller::curr()->comparePage->Annex()->Teams()->column('ID');
         }
+
         return $this->Annex()->Teams()->exclude(['ID' => $otherTeams]);
     }
 
@@ -104,6 +98,12 @@ class AnnexPage extends Page
         );
     }
 
+    /**
+     * Return the compared value, or striped if it is empty
+     * @param $subsidiary
+     * @param $team
+     * @return string
+     */
     public function CompareValue($subsidiary, $team)
     {
         if (!in_array($team, array_values(static::$teamNames))) {
@@ -125,19 +125,20 @@ class AnnexPage extends Page
             'TeamID'       => $team
         ])->first();
 
-        return $RASCI ? $RASCI->Value : 'striped';
+        return $RASCI ? $RASCI->Value : false;
     }
 
     /**
      * Check if this Annex has a team with the same name
      * @param $title
-     * @return \SilverStripe\ORM\DataObject|null
+     * @return bool
      */
     public function hasTeam($title)
     {
         if (!static::$teamNames) {
             static::$teamNames = $this->Annex()->Teams()->map('Name', 'ID')->toArray();
         }
+
         return array_key_exists($title, static::$teamNames);
     }
 
