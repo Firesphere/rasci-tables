@@ -102,6 +102,8 @@ class Team extends DataObject
             static::$selected[$this->ID] = $this->RASCI()->map('SubsidiaryID', 'Value')->toArray();
         }
 
-        return (isset(static::$selected[$this->ID][$subsidiary])) ? static::$selected[$this->ID][$subsidiary] : false;
+        return (isset(static::$selected[$this->ID][$subsidiary])) ?
+            static::$selected[$this->ID][$subsidiary] :
+            'Not set';
     }
 }

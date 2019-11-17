@@ -33,9 +33,9 @@
             $CompareValue($Subsidiary, $Up.ID)">
             <% if $CompareValue($Subsidiary, $Up.ID) != 'striped' %>
                 <i>$CompareValue($Subsidiary, $Up.ID)
-                <% if $Up.SelectedRASCI($Subsidiary) != $CompareValue($Subsidiary, $Up.ID) && $CompareValue($Subsidiary, $Up.ID) %>
-                    <b>(!)</b>
-                <% end_if %>
+                    <% if $CompareValue($Subsidiary, $Up.ID) != 'Not set' && $Up.SelectedRASCI($Subsidiary) != $CompareValue($Subsidiary, $Up.ID) && $CompareValue($Subsidiary, $Up.ID) %>
+                        <b>(!)</b>
+                    <% end_if %>
                 </i>
             <% end_if %>
         </td>

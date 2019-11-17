@@ -88,7 +88,7 @@ class AnnexSet extends DataObject
             static::$teamCount = $this->Teams()->count() * $multiplier;
         }
 
-        return static::$teamCount + ($plus * $multiplier);
+        return static::$teamCount + $plus;
     }
 
     public function getCachedTeams()

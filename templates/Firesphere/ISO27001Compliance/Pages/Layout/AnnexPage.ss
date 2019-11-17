@@ -26,31 +26,25 @@
                         <h4>Compare against another RASCI set</h4>
                         $CompareForm
                         <% if $compare %>
-                            <br/>
-                            <h2>Differences in teams</h2>
                             <% if $NonBaseTeams || $comparePage.NonbaseTeams %>
+                                <br/>
+                                <h2>Differences in teams</h2>
                                 <div class="row">
                                     <% if $NonBaseTeams %>
-                                        <div class="col-6">
-                                            <p>
+                                            <p class="col-6">
                                                 Teams in $Top.Title but not in $Top.comparePage.Title:
                                             <ul>
-                                                <% loop $NonBaseTeams %>
-                                                    <li>$Name</li><% end_loop %>
+                                                <% loop $NonBaseTeams %><li>$Name</li><% end_loop %>
                                             </ul>
                                             </p>
-                                        </div>
                                     <% end_if %>
                                     <% if $comparePage.NonBaseTeams %>
-                                        <div class="col-6">
-                                            <p>
+                                            <p class="col-6">
                                                 Teams in $Top.comparePage.Title but not in $Top.Title:
                                             <ul>
-                                                <% loop $comparePage.NonBaseTeams %>
-                                                    <li>$Name</li><% end_loop %>
+                                                <% loop $comparePage.NonBaseTeams %><li>$Name</li><% end_loop %>
                                             </ul>
                                             </p>
-                                        </div>
                                     <% end_if %>
                                 </div>
                             <% end_if %>
@@ -72,7 +66,7 @@
                     <thead>
                     <tr class="alert alert-primary">
                         <th rowspan="2"></th>
-                        <th rowspan="2">Section of ISO/IEC 27001:2013<br/>$Up.Title
+                        <th rowspan="2">Section of ISO/IEC 27001:2013<br/>$Title
                             <% if $Up.compare %><br/>&nbsp;<i>&raquo; Comparing against:</i>
                                 $Up.comparePage.Title
                             <% end_if %>
@@ -138,11 +132,10 @@
                             <% end_loop %>
                         <% end_loop %>
                     </tbody>
-                    <% if not $compare %>
+                    <% if not $Top.compare %>
                         <tfoot>
                         <tr>
-                            <td colspan="2"></td>
-                            <td colspan="$getTeamCount()"></td>
+                            <td colspan="$getTeamCount(2)"><b>Download</b></td>
                             <td colspan="2" class="text-right"><a href="$Top.Link('downloadcsv')">Download CSV</a></td>
                         </tr>
                         </tfoot>

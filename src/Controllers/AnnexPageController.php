@@ -10,7 +10,9 @@ use Firesphere\ISO27001Compliance\Models\Subsidiary;
 use Firesphere\ISO27001Compliance\Models\Team;
 use Firesphere\ISO27001Compliance\Pages\AnnexPage;
 use PageController;
+use PhpOffice\PhpSpreadsheet\IOFactory;
 use SilverStripe\Control\HTTPStreamResponse;
+use SilverStripe\Core\Manifest\ModuleLoader;
 use SilverStripe\Forms\DropdownField;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\Form;
@@ -169,7 +171,7 @@ class AnnexPageController extends PageController
         foreach ($baseCSV as &$row) {
             if ($row[0] !== '') {
                 $subsidiary = $subsidiaries->find('SubNo', $row[0]);
-                $i = 3;
+                $i = 2;
                 foreach ($teams as $team) {
                     $row[$i++] = $team->SelectedRASCI($subsidiary->ID);
                 }
@@ -196,5 +198,43 @@ class AnnexPageController extends PageController
         $response->addHeader("Content-disposition", 'attachment; filename="' . $name . '"');
 
         return $response;
+    }
+
+    /**
+     * Currently strips all features of the original.
+     * Needs more work.
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     * @throws \PhpOffice\PhpSpreadsheet\Reader\Exception
+     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
+     */
+    public function downloadods()
+    {
+        $modulePath = ModuleLoader::getModule('firesphere/iso-compliance')->getPath();
+
+        $original = $modulePath . '/resources/ISO27k-RASCI-tool.ods';
+
+        $reader = IOFactory::createReader('Ods');
+        $reader->setReadDataOnly(false);
+        $sheet = $reader->load($original);
+
+        $sheet->setActiveSheetIndex(1);
+        $sheet->setHasMacros(true);
+
+        $col = range('A', 'Z');
+        $teams = $this->dataRecord->Annex()->Teams();
+        foreach ($teams as $i => $team) {
+            $sheet->getActiveSheet()
+                ->getCell($col[$i + 2] . '1')
+                ->setValue($team->Name);
+        }
+
+        $writer = IOFactory::createWriter($sheet, 'Ods');
+
+        $writer->setPreCalculateFormulas(true);
+        // Redirect output to a client's web browser (Ods)
+        header('Content-Type: application/vnd.oasis.opendocument.spreadsheet');
+        header('Content-Disposition: attachment;filename="ISO27001-RASCI-table.ods"');
+        header('Cache-Control: max-age=0');
+        $writer->save('php://output');
     }
 }

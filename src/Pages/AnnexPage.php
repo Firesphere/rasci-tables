@@ -125,7 +125,7 @@ class AnnexPage extends Page
             'TeamID'       => $team
         ])->first();
 
-        return $RASCI ? $RASCI->Value : false;
+        return ($RASCI && !empty($RASCI->Value)) ? $RASCI->Value : 'Not set';
     }
 
     /**
