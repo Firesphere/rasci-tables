@@ -10,7 +10,9 @@ use Firesphere\ISO27001Compliance\Models\Subsidiary;
 use Firesphere\ISO27001Compliance\Models\Team;
 use Firesphere\ISO27001Compliance\Pages\AnnexPage;
 use PageController;
+use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Shared\File;
 use SilverStripe\Control\HTTPStreamResponse;
 use SilverStripe\Core\Manifest\ModuleLoader;
 use SilverStripe\Forms\DropdownField;
@@ -213,7 +215,10 @@ class AnnexPageController extends PageController
 
         $original = $modulePath . '/resources/ISO27k-RASCI-tool.ods';
 
-        $reader = IOFactory::createReader('Ods');
+        $subsidiaries = $this->dataRecord->Annex()->AnnexChapters()->column('ID');
+        $subsidiaries = Subsidiary::get()->filter(['AnnexChapterID' => $subsidiaries]);
+
+        $reader = IOFactory::createReaderForFile($original);
         $reader->setReadDataOnly(false);
         $sheet = $reader->load($original);
 
@@ -223,18 +228,23 @@ class AnnexPageController extends PageController
         $col = range('A', 'Z');
         $teams = $this->dataRecord->Annex()->Teams();
         foreach ($teams as $i => $team) {
-            $sheet->getActiveSheet()
-                ->getCell($col[$i + 2] . '1')
-                ->setValue($team->Name);
+            $cell = $sheet->getActiveSheet()
+                ->getCell($col[$i + 2] . '1');
+            $cell->setValue($team->Name);
         }
 
         $writer = IOFactory::createWriter($sheet, 'Ods');
 
         $writer->setPreCalculateFormulas(true);
-        // Redirect output to a client's web browser (Ods)
-        header('Content-Type: application/vnd.oasis.opendocument.spreadsheet');
-        header('Content-Disposition: attachment;filename="ISO27001-RASCI-table.ods"');
-        header('Cache-Control: max-age=0');
-        $writer->save('php://output');
+
+        $rand = uniqid('iso', false);
+        $writer->save(TEMP_FOLDER . '/' . $rand . '.ods');
+        $input = fopen(TEMP_FOLDER . '/' . $rand . '.ods', 'r');
+        $response = new HTTPStreamResponse($input, null);
+        $response->addHeader('Content-Type', 'application/vnd.oasis.opendocument.spreadsheet');
+        $response->addHeader('Content-Disposition', 'attachment;filename="ISO27001-RASCI-table.ods"');
+        $response->addHeader('Cache-Control', 'max-age=0');
+        $this->setResponse($response);
+        unlink(TEMP_FOLDER . '/' . $rand . '.ods');
     }
 }
