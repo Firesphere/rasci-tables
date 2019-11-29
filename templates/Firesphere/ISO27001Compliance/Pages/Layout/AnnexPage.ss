@@ -108,7 +108,7 @@
                                         <% include SubChapter AnnexChapter=$Up.Up.Up, Comparing=$Top.compare %>
                                     <% end_with %>
                                 <% end_if %>
-                            <tr class="$EvenOdd">
+                            <tr class="$EvenOdd" id="Subsidiary-$ID">
                                 <td class="subsidiary_number"><code>$SubNo</code></td>
                                 <td class="subsidiary_title">$Title</td>
                                 <% loop $getSubsidiaryTeams %>

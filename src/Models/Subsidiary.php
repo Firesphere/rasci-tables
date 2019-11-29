@@ -3,6 +3,7 @@
 
 namespace Firesphere\ISO27001Compliance\Models;
 
+use Firesphere\ISO27001Compliance\Pages\AnnexPage;
 use Firesphere\ISO27001Compliance\Pages\PolicyPage;
 use SilverStripe\ORM\ArrayList;
 use SilverStripe\ORM\DataList;
@@ -110,5 +111,16 @@ class Subsidiary extends DataObject
                 $this->SubChapterID = $subChapter->ID;
             }
         }
+    }
+
+    public function getLink()
+    {
+        $baseLink = $this->AnnexChapter()->AnnexSet()->Page();
+
+        if ($baseLink && $baseLink instanceof AnnexPage) {
+            return $baseLink->Link(sprintf('#Subsidiary-%s', $this->ID));
+        }
+
+        return false;
     }
 }

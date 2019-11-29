@@ -1,4 +1,4 @@
-<tr class="table-active">
+<tr class="table-active" id="SubChapter-$ID">
     <td class="subsidiary_number"><code>$SubNo</code></td>
     <td class="subsidiary_title">$Title</td>
     <td colspan="$AnnexChapter.getTeamCount()">

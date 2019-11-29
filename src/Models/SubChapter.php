@@ -3,6 +3,7 @@
 
 namespace Firesphere\ISO27001Compliance\Models;
 
+use Firesphere\ISO27001Compliance\Pages\AnnexPage;
 use SilverStripe\ORM\DataObject;
 
 /**
@@ -173,4 +174,15 @@ class SubChapter extends DataObject
             'Title' => 'Information security reviews',
         ],
     ];
+
+    public function getLink()
+    {
+        $page = $this->Subsidiary()->AnnexChapter()->AnnexSet()->Page();
+
+        if ($page && $page instanceof AnnexPage) {
+            return $page->Link('#SubChapter-' . $this->ID);
+        }
+
+        return false;
+    }
 }

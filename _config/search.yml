@@ -7,15 +7,23 @@ Firesphere\SolrSearch\Indexes\BaseIndex:
   PolicyIndex:
     Classes:
       - SilverStripe\CMS\Model\SiteTree
+      - DNADesign\Elemental\Models\BaseElement
+      - Firesphere\ISO27001Compliance\Models\Subsidiary
+      - Firesphere\ISO27001Compliance\Models\SubChapter
+      - Firesphere\ISO27001Compliance\Models\AnnexChapter
     FulltextFields:
       - Title
+      - AnnexNo
+      - SubNo
+      - Reference
       - SearchElements
+      - forTemplate
+      - Lead
+      - SubChapter.Title
       - Author.Name
       - Annex.Title
       - Annex.AnnexChapters.Title
       - Annex.AnnexChapters.AnnexNo
-      - Annex.AnnexChapters.Subsidiaries.Title
-      - Annex.AnnexChapters.Subsidiaries.SubNo
       - Subsidiaries.Title
     FilterFields:
       - Created

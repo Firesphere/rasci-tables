@@ -157,6 +157,9 @@ class AnnexPageController extends PageController
         return $data;
     }
 
+    /**
+     * @return HTTPStreamResponse
+     */
     public function downloadcsv()
     {
         /** @var AnnexSet $annexSet */
