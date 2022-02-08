@@ -19,7 +19,8 @@
         "silverstripe/recipe-plugin": "^1.2",
         "silverstripe/recipe-cms": "^4",
         "symbiote/silverstripe-gridfieldextensions": "^3",
-        "phpoffice/phpspreadsheet": "^1.9"
+        "phpoffice/phpspreadsheet": "^1.9",
+        "lekoala/silverstripe-excel-import-export": "^2.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^5.7",
@@ -37,6 +38,19 @@
         },
         "expose": [
             "dist"
+        ],
+        "project-files-installed": [
+            "app/.htaccess",
+            "app/_config.php",
+            "app/_config/mimevalidator.yml",
+            "app/_config/mysite.yml",
+            "app/src/Page.php",
+            "app/src/PageController.php"
+        ],
+        "public-files-installed": [
+            ".htaccess",
+            "index.php",
+            "web.config"
         ]
     },
     "minimum-stability": "dev",
